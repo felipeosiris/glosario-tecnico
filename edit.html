@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Glosario Técnico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #FF5A00;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #D5D5D5;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            background-color: #FF5A00;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-actions button:hover {
+            background-color: #E54A00;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Editar Glosario Técnico</h1>
+
+    <div class="form-group">
+        <label for="termSelect">Selecciona un término:</label>
+        <select id="termSelect">
+            <option value="">Seleccionar...</option>
+            <!-- Opciones generadas dinámicamente -->
+        </select>
+    </div>
+
+    <div id="editForm" class="hidden">
+        <div class="form-group">
+            <label for="title">Título:</label>
+            <input type="text" id="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea id="description" required></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button id="saveButton">Guardar Cambios</button>
+        </div>
+    </div>
+
+    <script>
+        let glossaryData = [];
+
+        // Cargar términos desde data.json
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                glossaryData = data;
+                const termSelect = document.getElementById('termSelect');
+                data.forEach((term, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = term.title;
+                    termSelect.appendChild(option);
+                });
+            });
+
+        document.getElementById('termSelect').addEventListener('change', function() {
+            const selectedIndex = this.value;
+            if (selectedIndex) {
+                const selectedTerm = glossaryData[selectedIndex];
+                document.getElementById('title').value = selectedTerm.title;
+                document.getElementById('description').value = selectedTerm.description;
+                document.getElementById('editForm').classList.remove('hidden');
+            } else {
+                document.getElementById('editForm').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const selectedIndex = document.getElementById('termSelect').value;
+            if (selectedIndex !== '') {
+                const updatedTitle = document.getElementById('title').value;
+                const updatedDescription = document.getElementById('description').value;
+
+                glossaryData[selectedIndex].title = updatedTitle;
+                glossaryData[selectedIndex].description = updatedDescription;
+
+                // Guardar cambios en data.json (Simulado)
+                console.log('Actualizado:', glossaryData[selectedIndex]);
+                alert('Cambios guardados. Actualiza el archivo data.json con los nuevos datos.');
+
+                // Aquí tendrías que enviar el nuevo JSON a tu servidor o manejar la actualización según tu stack
+            }
+        });
+    </script>
+</body>
+</html>
