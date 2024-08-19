@@ -1,0 +1,262 @@
+[
+    {
+        "title": "CMS (Content Management System)",
+        "description": "Sistema que permite la creación, gestión, y modificación de contenido digital, generalmente para sitios web, sin necesidad de conocimientos técnicos avanzados."
+    },
+    {
+        "title": "CRM (Customer Relationship Management)",
+        "description": "Sistema para gestionar las relaciones con los clientes y potenciales clientes. Centraliza la información de los clientes, automatiza procesos de ventas, y mejora la gestión del servicio al cliente."
+    },
+    {
+        "title": "VTEX",
+        "description": "Plataforma de comercio electrónico que ofrece soluciones completas para tiendas en línea, incluyendo administración de inventario, pagos, y herramientas de marketing."
+    },
+    {
+        "title": "CSAT (Customer Satisfaction Score)",
+        "description": "Medida que evalúa la satisfacción del cliente con un producto o servicio específico. Se calcula generalmente con una encuesta en la que se pide a los clientes que califiquen su satisfacción en una escala del 1 al 5."
+    },
+    {
+        "title": "CES (Customer Effort Score)",
+        "description": "Medida que evalúa el esfuerzo que tiene que hacer un cliente para interactuar con una empresa, ya sea para resolver un problema, comprar un producto, o acceder a un servicio."
+    },
+    {
+        "title": "Pull Request (PR)",
+        "description": "Solicitud para fusionar código en la rama principal. Permite la revisión y aprobación de cambios antes de ser integrados."
+    },
+    {
+        "title": "Commit",
+        "description": "Guardar cambios en el repositorio de código. Un commit tiene un mensaje que describe los cambios realizados."
+    },
+    {
+        "title": "Branch",
+        "description": "Una versión independiente del código base donde se realizan desarrollos específicos sin afectar la rama principal."
+    },
+    {
+        "title": "Merge",
+        "description": "Proceso de integrar cambios de una rama a otra. Se suele hacer después de la aprobación de un PR."
+    },
+    {
+        "title": "Rebase",
+        "description": "Reaplicar commits de una rama sobre otra, lo que mantiene un historial de commits más limpio."
+    },
+    {
+        "title": "Continuous Integration (CI)",
+        "description": "Práctica de integrar código en un repositorio compartido varias veces al día, seguido de la ejecución automática de pruebas."
+    },
+    {
+        "title": "Continuous Deployment (CD)",
+        "description": "Proceso automatizado de desplegar aplicaciones a producción después de pasar por todas las pruebas en CI."
+    },
+    {
+        "title": "TestFlight (TF)",
+        "description": "Plataforma de Apple para la distribución y prueba de aplicaciones móviles antes de su lanzamiento en la App Store."
+    },
+    {
+        "title": "APK",
+        "description": "Archivo de paquete de Android (Android Package). Es el formato de archivo usado para distribuir e instalar aplicaciones en dispositivos Android."
+    },
+    {
+        "title": "IPA",
+        "description": "Archivo de aplicación de iOS (iOS App Store Package). Es el formato de archivo usado para distribuir e instalar aplicaciones en dispositivos iOS."
+    },
+    {
+        "title": "App Store",
+        "description": "Plataforma de distribución digital de Apple donde los usuarios pueden descargar e instalar aplicaciones en dispositivos iOS."
+    },
+    {
+        "title": "Play Store",
+        "description": "Plataforma de distribución digital de Google para dispositivos Android, donde los usuarios pueden descargar e instalar aplicaciones."
+    },
+    {
+        "title": "Unit Test",
+        "description": "Pruebas que validan el funcionamiento correcto de unidades individuales de código, como funciones o métodos."
+    },
+    {
+        "title": "Integration Test",
+        "description": "Pruebas que verifican que diferentes módulos o servicios de la aplicación funcionan juntos correctamente."
+    },
+    {
+        "title": "Build",
+        "description": "Proceso de compilar código fuente en un archivo ejecutable que se puede desplegar o probar."
+    },
+    {
+        "title": "Deployment",
+        "description": "Proceso de poner una nueva versión de una aplicación en un entorno de producción o pruebas."
+    },
+    {
+        "title": "Staging Environment",
+        "description": "Entorno que replica el entorno de producción para pruebas finales antes del lanzamiento."
+    },
+    {
+        "title": "Production Environment",
+        "description": "Entorno donde la aplicación está disponible para los usuarios finales."
+    },
+    {
+        "title": "Hotfix",
+        "description": "Cambios rápidos y críticos hechos en producción para resolver un problema urgente."
+    },
+    {
+        "title": "Refactoring",
+        "description": "Mejorar el código existente sin cambiar su funcionalidad externa para hacerlo más eficiente o legible."
+    },
+    {
+        "title": "Code Review",
+        "description": "Proceso de revisar código escrito por otros desarrolladores para asegurarse de que cumple con los estándares y funciona correctamente."
+    },
+    {
+        "title": "Debugging",
+        "description": "Proceso de identificar y corregir errores o problemas en el código."
+    },
+    {
+        "title": "API (Application Programming Interface)",
+        "description": "Conjunto de reglas y herramientas que permiten que diferentes aplicaciones se comuniquen entre sí."
+    },
+    {
+        "title": "SDK (Software Development Kit)",
+        "description": "Conjunto de herramientas y bibliotecas proporcionadas para el desarrollo de aplicaciones para un sistema específico."
+    },
+    {
+        "title": "IDE (Integrated Development Environment)",
+        "description": "Software que proporciona herramientas completas para escribir, compilar, y depurar código."
+    },
+    {
+        "title": "Git",
+        "description": "Sistema de control de versiones distribuido que permite a los desarrolladores gestionar el historial de su código."
+    },
+    {
+        "title": "Docker",
+        "description": "Plataforma que permite crear, desplegar y gestionar aplicaciones dentro de contenedores, facilitando la portabilidad y consistencia."
+    },
+    {
+        "title": "Kubernetes",
+        "description": "Sistema de orquestación de contenedores que automatiza la implementación, escalado y gestión de aplicaciones en contenedores."
+    },
+    {
+        "title": "Microservices",
+        "description": "Arquitectura de software que divide una aplicación en pequeños servicios independientes que se comunican entre sí."
+    },
+    {
+        "title": "Monolithic Architecture",
+        "description": "Enfoque de diseño de software donde todos los componentes de la aplicación están integrados en un único programa."
+    },
+    {
+        "title": "Caching",
+        "description": "Técnica para almacenar copias de datos temporales para mejorar el rendimiento y reducir la carga en los sistemas backend."
+    },
+    {
+        "title": "Latency",
+        "description": "Tiempo que tarda un paquete de datos en viajar desde su origen hasta su destino."
+    },
+    {
+        "title": "Throughput",
+        "description": "Cantidad de datos que se pueden procesar en un período de tiempo determinado."
+    },
+    {
+        "title": "Load Balancer",
+        "description": "Dispositivo o software que distribuye la carga de trabajo entre varios servidores para optimizar el uso de recursos."
+    },
+    {
+        "title": "Serverless",
+        "description": "Modelo de ejecución en la nube donde el proveedor gestiona automáticamente la infraestructura necesaria para ejecutar el código."
+    },
+    {
+        "title": "REST (Representational State Transfer)",
+        "description": "Estilo arquitectónico para diseñar APIs que se comunican a través de HTTP."
+    },
+    {
+        "title": "GraphQL",
+        "description": "Lenguaje de consulta para APIs que permite a los clientes pedir exactamente los datos que necesitan."
+    },
+    {
+        "title": "OAuth",
+        "description": "Protocolo de autenticación y autorización que permite acceso limitado a recursos de usuario sin compartir credenciales."
+    },
+    {
+        "title": "JWT (JSON Web Token)",
+        "description": "Estándar abierto para crear tokens de acceso que permiten la verificación de identidad en aplicaciones web."
+    },
+    {
+        "title": "CI/CD Pipeline",
+        "description": "Conjunto automatizado de procesos para desarrollar, probar, y desplegar código."
+    },
+    {
+        "title": "Pair Programming",
+        "description": "Técnica en la que dos desarrolladores trabajan juntos en una misma estación de trabajo, revisando y escribiendo código en conjunto."
+    },
+    {
+        "title": "Tech Debt (Technical Debt)",
+        "description": "Trabajo de desarrollo adicional que resulta de la elección de soluciones rápidas en lugar de soluciones más eficaces pero que requieren más tiempo."
+    },
+    {
+        "title": "Provisioning Profile",
+        "description": "Certificado de Apple que autoriza a los dispositivos iOS a ejecutar una aplicación específica."
+    },
+    {
+        "title": "Keystore",
+        "description": "Archivo que contiene certificados digitales privados y públicos para firmar APKs de Android antes de su publicación."
+    },
+    {
+        "title": "Xcode",
+        "description": "Entorno de desarrollo integrado (IDE) de Apple utilizado para desarrollar aplicaciones iOS y macOS."
+    },
+    {
+        "title": "Android Studio",
+        "description": "Entorno de desarrollo integrado (IDE) de Google utilizado para desarrollar aplicaciones Android."
+    },
+    {
+        "title": "Gradle",
+        "description": "Sistema de automatización de compilaciones utilizado principalmente para proyectos Android para manejar dependencias y construir APKs."
+    },
+    {
+        "title": "CocoaPods",
+        "description": "Gestor de dependencias para proyectos de iOS que facilita la integración de bibliotecas de terceros."
+    },
+    {
+        "title": "Swift Package Manager (SPM)",
+        "description": "Herramienta de Apple para gestionar dependencias y construir proyectos en Swift."
+    },
+    {
+        "title": "Flutter",
+        "description": "Framework de UI de Google que permite construir aplicaciones nativas para iOS y Android con una única base de código."
+    },
+    {
+        "title": "React Native",
+        "description": "Framework de JavaScript que permite construir aplicaciones nativas para iOS y Android utilizando React."
+    },
+    {
+        "title": "App Signing",
+        "description": "Proceso de firmar digitalmente un APK o IPA para asegurar la autenticidad de la aplicación antes de su distribución."
+    },
+    {
+        "title": "Emulator/Simulator",
+        "description": "Herramientas que permiten ejecutar y probar aplicaciones móviles en un entorno virtual sin necesidad de un dispositivo físico."
+    },
+    {
+        "title": "In-App Purchase (IAP)",
+        "description": "Funcionalidad que permite a los usuarios comprar contenido adicional o características dentro de una aplicación."
+    },
+    {
+        "title": "Push Notifications",
+        "description": "Mensajes enviados desde un servidor a un dispositivo móvil para alertar al usuario sobre eventos o actualizaciones en la aplicación."
+    },
+    {
+        "title": "App Bundle",
+        "description": "Formato de distribución utilizado por Google Play para optimizar el tamaño de la aplicación y reducir los recursos innecesarios en dispositivos específicos."
+    },
+    {
+        "title": "Firebase",
+        "description": "Plataforma de Google que proporciona una variedad de herramientas y servicios backend como bases de datos en tiempo real, autenticación, y notificaciones push."
+    },
+    {
+        "title": "Realm",
+        "description": "Base de datos móvil diseñada para aplicaciones con sincronización en tiempo real y almacenamiento local rápido."
+    },
+    {
+        "title": "Crashlytics",
+        "description": "Herramienta para monitorear y reportar errores y fallos en aplicaciones móviles, parte de Firebase."
+    },
+    {
+        "title": "Analytics",
+        "description": "Herramientas y servicios que permiten monitorear el comportamiento del usuario y el rendimiento de la aplicación."
+    }
+]
