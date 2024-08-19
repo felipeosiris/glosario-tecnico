@@ -48,6 +48,7 @@
         }
 
         .glossary-card {
+            position: relative;
             background-color: #ffffff;
             border: 1px solid #D5D5D5;
             border-radius: 10px;
@@ -73,6 +74,22 @@
             color: #333;
         }
 
+        .edit-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            background-image: url('edit-icon.svg'); /* Cambia esta URL al icono que prefieras */
+            background-size: cover;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .edit-icon:hover {
+            opacity: 0.7;
+        }
+
         .hidden {
             display: none;
         }
@@ -95,12 +112,13 @@
             .then(response => response.json())
             .then(data => {
                 const glossaryContainer = document.getElementById('glossary');
-                data.forEach(term => {
+                data.forEach((term, index) => {
                     const card = document.createElement('div');
                     card.className = 'glossary-card';
                     card.innerHTML = `
                         <h2>${term.title}</h2>
                         <p>${term.description}</p>
+                        <div class="edit-icon" onclick="editTerm(${index})"></div>
                     `;
                     glossaryContainer.appendChild(card);
                 });
@@ -120,6 +138,10 @@
                     });
                 });
             });
+
+        function editTerm(index) {
+            window.location.href = `edit.html?termIndex=${index}`;
+        }
     </script>
 </body>
 </html>
