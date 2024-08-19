@@ -39,60 +39,42 @@
         }
 
         .glossary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             width: 80%;
-            max-width: 600px;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .glossary-card {
             background-color: #ffffff;
             border: 1px solid #D5D5D5;
             border-radius: 10px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .glossary-item {
-            border-bottom: 1px solid #D5D5D5;
+        .glossary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
         }
 
-        .glossary-item:last-child {
-            border-bottom: none;
+        .glossary-card h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #FF5A00;
+            margin-bottom: 10px;
         }
 
-        .glossary-item button {
-            width: 100%;
-            padding: 15px;
-            background-color: #FF5A00;
-            color: white;
-            text-align: left;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            outline: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .glossary-item button:hover {
-            background-color: #E54A00;
-        }
-
-        .glossary-item button:after {
-            content: '\002B';
-            float: right;
-        }
-
-        .glossary-item button.active:after {
-            content: '\2212';
-        }
-
-        .glossary-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 15px;
-        }
-
-        .glossary-content p {
-            margin: 15px 0;
+        .glossary-card p {
             font-size: 16px;
             color: #333;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -105,426 +87,39 @@
     </div>
 
     <div class="glossary" id="glossary">
-        <div class="glossary-item">
-    <button>CMS (Content Management System)</button>
-    <div class="glossary-content">
-        <p>Sistema que permite la creación, gestión, y modificación de contenido digital, generalmente para sitios web, sin necesidad de conocimientos técnicos avanzados.</p>
-    </div>
-</div>
-<div class="glossary-item">
-    <button>CRM (Customer Relationship Management)</button>
-    <div class="glossary-content">
-        <p>Sistema para gestionar las relaciones con los clientes y potenciales clientes. Centraliza la información de los clientes, automatiza procesos de ventas, y mejora la gestión del servicio al cliente.</p>
-    </div>
-</div>
-<div class="glossary-item">
-    <button>VTEX</button>
-    <div class="glossary-content">
-        <p>Plataforma de comercio electrónico que ofrece soluciones completas para tiendas en línea, incluyendo administración de inventario, pagos, y herramientas de marketing.</p>
-    </div>
-</div>
-<div class="glossary-item">
-    <button>CSAT (Customer Satisfaction Score)</button>
-    <div class="glossary-content">
-        <p>Medida que evalúa la satisfacción del cliente con un producto o servicio específico. Se calcula generalmente con una encuesta en la que se pide a los clientes que califiquen su satisfacción en una escala del 1 al 5.</p>
-    </div>
-</div>
-<div class="glossary-item">
-    <button>CES (Customer Effort Score)</button>
-    <div class="glossary-content">
-        <p>Medida que evalúa el esfuerzo que tiene que hacer un cliente para interactuar con una empresa, ya sea para resolver un problema, comprar un producto, o acceder a un servicio.</p>
-    </div>
-</div>
-        <div class="glossary-item">
-            <button>Pull Request (PR)</button>
-            <div class="glossary-content">
-                <p>Solicitud para fusionar código en la rama principal. Permite la revisión y aprobación de cambios antes de ser integrados.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Commit</button>
-            <div class="glossary-content">
-                <p>Guardar cambios en el repositorio de código. Un commit tiene un mensaje que describe los cambios realizados.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Branch</button>
-            <div class="glossary-content">
-                <p>Una versión independiente del código base donde se realizan desarrollos específicos sin afectar la rama principal.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Merge</button>
-            <div class="glossary-content">
-                <p>Proceso de integrar cambios de una rama a otra. Se suele hacer después de la aprobación de un PR.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Rebase</button>
-            <div class="glossary-content">
-                <p>Reaplicar commits de una rama sobre otra, lo que mantiene un historial de commits más limpio.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Continuous Integration (CI)</button>
-            <div class="glossary-content">
-                <p>Práctica de integrar código en un repositorio compartido varias veces al día, seguido de la ejecución automática de pruebas.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Continuous Deployment (CD)</button>
-            <div class="glossary-content">
-                <p>Proceso automatizado de desplegar aplicaciones a producción después de pasar por todas las pruebas en CI.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>TestFlight (TF)</button>
-            <div class="glossary-content">
-                <p>Plataforma de Apple para la distribución y prueba de aplicaciones móviles antes de su lanzamiento en la App Store.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>APK</button>
-            <div class="glossary-content">
-                <p>Archivo de paquete de Android (Android Package). Es el formato de archivo usado para distribuir e instalar aplicaciones en dispositivos Android.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>IPA</button>
-            <div class="glossary-content">
-                <p>Archivo de aplicación de iOS (iOS App Store Package). Es el formato de archivo usado para distribuir e instalar aplicaciones en dispositivos iOS.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>App Store</button>
-            <div class="glossary-content">
-                <p>Plataforma de distribución digital de Apple donde los usuarios pueden descargar e instalar aplicaciones en dispositivos iOS.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Play Store</button>
-            <div class="glossary-content">
-                <p>Plataforma de distribución digital de Google para dispositivos Android, donde los usuarios pueden descargar e instalar aplicaciones.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Unit Test</button>
-            <div class="glossary-content">
-                <p>Pruebas que validan el funcionamiento correcto de unidades individuales de código, como funciones o métodos.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Integration Test</button>
-            <div class="glossary-content">
-                <p>Pruebas que verifican que diferentes módulos o servicios de la aplicación funcionan juntos correctamente.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Build</button>
-            <div class="glossary-content">
-                <p>Proceso de compilar código fuente en un archivo ejecutable que se puede desplegar o probar.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Deployment</button>
-            <div class="glossary-content">
-                <p>Proceso de poner una nueva versión de una aplicación en un entorno de producción o pruebas.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Staging Environment</button>
-            <div class="glossary-content">
-                <p>Entorno que replica el entorno de producción para pruebas finales antes del lanzamiento.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Production Environment</button>
-            <div class="glossary-content">
-                <p>Entorno donde la aplicación está disponible para los usuarios finales.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Hotfix</button>
-            <div class="glossary-content">
-                <p>Cambios rápidos y críticos hechos en producción para resolver un problema urgente.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Refactoring</button>
-            <div class="glossary-content">
-                <p>Mejorar el código existente sin cambiar su funcionalidad externa para hacerlo más eficiente o legible.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Code Review</button>
-            <div class="glossary-content">
-                <p>Proceso de revisar código escrito por otros desarrolladores para asegurarse de que cumple con los estándares y funciona correctamente.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Debugging</button>
-            <div class="glossary-content">
-                <p>Proceso de identificar y corregir errores o problemas en el código.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>API (Application Programming Interface)</button>
-            <div class="glossary-content">
-                <p>Conjunto de reglas y herramientas que permiten que diferentes aplicaciones se comuniquen entre sí.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>SDK (Software Development Kit)</button>
-            <div class="glossary-content">
-                <p>Conjunto de herramientas y bibliotecas proporcionadas para el desarrollo de aplicaciones para un sistema específico.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>IDE (Integrated Development Environment)</button>
-            <div class="glossary-content">
-                <p>Software que proporciona herramientas completas para escribir, compilar, y depurar código.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Git</button>
-            <div class="glossary-content">
-                <p>Sistema de control de versiones distribuido que permite a los desarrolladores gestionar el historial de su código.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Docker</button>
-            <div class="glossary-content">
-                <p>Plataforma que permite crear, desplegar y gestionar aplicaciones dentro de contenedores, facilitando la portabilidad y consistencia.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Kubernetes</button>
-            <div class="glossary-content">
-                <p>Sistema de orquestación de contenedores que automatiza la implementación, escalado y gestión de aplicaciones en contenedores.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Microservices</button>
-            <div class="glossary-content">
-                <p>Arquitectura de software que divide una aplicación en pequeños servicios independientes que se comunican entre sí.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Monolithic Architecture</button>
-            <div class="glossary-content">
-                <p>Enfoque de diseño de software donde todos los componentes de la aplicación están integrados en un único programa.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Caching</button>
-            <div class="glossary-content">
-                <p>Técnica para almacenar copias de datos temporales para mejorar el rendimiento y reducir la carga en los sistemas backend.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Latency</button>
-            <div class="glossary-content">
-                <p>Tiempo que tarda un paquete de datos en viajar desde su origen hasta su destino.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Throughput</button>
-            <div class="glossary-content">
-                <p>Cantidad de datos que se pueden procesar en un período de tiempo determinado.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Load Balancer</button>
-            <div class="glossary-content">
-                <p>Dispositivo o software que distribuye la carga de trabajo entre varios servidores para optimizar el uso de recursos.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Serverless</button>
-            <div class="glossary-content">
-                <p>Modelo de ejecución en la nube donde el proveedor gestiona automáticamente la infraestructura necesaria para ejecutar el código.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>REST (Representational State Transfer)</button>
-            <div class="glossary-content">
-                <p>Estilo arquitectónico para diseñar APIs que se comunican a través de HTTP.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>GraphQL</button>
-            <div class="glossary-content">
-                <p>Lenguaje de consulta para APIs que permite a los clientes pedir exactamente los datos que necesitan.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>OAuth</button>
-            <div class="glossary-content">
-                <p>Protocolo de autenticación y autorización que permite acceso limitado a recursos de usuario sin compartir credenciales.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>JWT (JSON Web Token)</button>
-            <div class="glossary-content">
-                <p>Estándar abierto para crear tokens de acceso que permiten la verificación de identidad en aplicaciones web.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>CI/CD Pipeline</button>
-            <div class="glossary-content">
-                <p>Conjunto automatizado de procesos para desarrollar, probar, y desplegar código.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Pair Programming</button>
-            <div class="glossary-content">
-                <p>Técnica en la que dos desarrolladores trabajan juntos en una misma estación de trabajo, revisando y escribiendo código en conjunto.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Tech Debt (Technical Debt)</button>
-            <div class="glossary-content">
-                <p>Trabajo de desarrollo adicional que resulta de la elección de soluciones rápidas en lugar de soluciones más eficaces pero que requieren más tiempo.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Provisioning Profile</button>
-            <div class="glossary-content">
-                <p>Certificado de Apple que autoriza a los dispositivos iOS a ejecutar una aplicación específica.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Keystore</button>
-            <div class="glossary-content">
-                <p>Archivo que contiene certificados digitales privados y públicos para firmar APKs de Android antes de su publicación.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Xcode</button>
-            <div class="glossary-content">
-                <p>Entorno de desarrollo integrado (IDE) de Apple utilizado para desarrollar aplicaciones iOS y macOS.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Android Studio</button>
-            <div class="glossary-content">
-                <p>Entorno de desarrollo integrado (IDE) de Google utilizado para desarrollar aplicaciones Android.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Gradle</button>
-            <div class="glossary-content">
-                <p>Sistema de automatización de compilaciones utilizado principalmente para proyectos Android para manejar dependencias y construir APKs.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>CocoaPods</button>
-            <div class="glossary-content">
-                <p>Gestor de dependencias para proyectos de iOS que facilita la integración de bibliotecas de terceros.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Swift Package Manager (SPM)</button>
-            <div class="glossary-content">
-                <p>Herramienta de Apple para gestionar dependencias y construir proyectos en Swift.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Flutter</button>
-            <div class="glossary-content">
-                <p>Framework de UI de Google que permite construir aplicaciones nativas para iOS y Android con una única base de código.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>React Native</button>
-            <div class="glossary-content">
-                <p>Framework de JavaScript que permite construir aplicaciones nativas para iOS y Android utilizando React.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>App Signing</button>
-            <div class="glossary-content">
-                <p>Proceso de firmar digitalmente un APK o IPA para asegurar la autenticidad de la aplicación antes de su distribución.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Emulator/Simulator</button>
-            <div class="glossary-content">
-                <p>Herramientas que permiten ejecutar y probar aplicaciones móviles en un entorno virtual sin necesidad de un dispositivo físico.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>In-App Purchase (IAP)</button>
-            <div class="glossary-content">
-                <p>Funcionalidad que permite a los usuarios comprar contenido adicional o características dentro de una aplicación.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Push Notifications</button>
-            <div class="glossary-content">
-                <p>Mensajes enviados desde un servidor a un dispositivo móvil para alertar al usuario sobre eventos o actualizaciones en la aplicación.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>App Bundle</button>
-            <div class="glossary-content">
-                <p>Formato de distribución utilizado por Google Play para optimizar el tamaño de la aplicación y reducir los recursos innecesarios en dispositivos específicos.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Firebase</button>
-            <div class="glossary-content">
-                <p>Plataforma de Google que proporciona una variedad de herramientas y servicios backend como bases de datos en tiempo real, autenticación, y notificaciones push.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Realm</button>
-            <div class="glossary-content">
-                <p>Base de datos móvil diseñada para aplicaciones con sincronización en tiempo real y almacenamiento local rápido.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Crashlytics</button>
-            <div class="glossary-content">
-                <p>Herramienta para monitorear y reportar errores y fallos en aplicaciones móviles, parte de Firebase.</p>
-            </div>
-        </div>
-        <div class="glossary-item">
-            <button>Analytics</button>
-            <div class="glossary-content">
-                <p>Herramientas y servicios que permiten monitorear el comportamiento del usuario y el rendimiento de la aplicación.</p>
-            </div>
-        </div>
+        <!-- Las tarjetas se generarán dinámicamente aquí -->
     </div>
 
     <script>
-        document.querySelectorAll('.glossary-item button').forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const glossaryContainer = document.getElementById('glossary');
+                data.forEach(term => {
+                    const card = document.createElement('div');
+                    card.className = 'glossary-card';
+                    card.innerHTML = `
+                        <h2>${term.title}</h2>
+                        <p>${term.description}</p>
+                    `;
+                    glossaryContainer.appendChild(card);
+                });
 
-                button.classList.toggle('active');
-                if (button.classList.contains('active')) {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                } else {
-                    content.style.maxHeight = '0';
-                }
+                const searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', function() {
+                    const filter = this.value.toLowerCase();
+                    const cards = document.querySelectorAll('.glossary-card');
+                    cards.forEach(card => {
+                        const titleText = card.querySelector('h2').textContent.toLowerCase();
+                        const contentText = card.querySelector('p').textContent.toLowerCase();
+                        if (titleText.includes(filter) || contentText.includes(filter)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
             });
-        });
-
-        document.getElementById('searchInput').addEventListener('input', function() {
-            let filter = this.value.toLowerCase();
-            let items = document.querySelectorAll('.glossary-item');
-
-            items.forEach(item => {
-                let titleText = item.querySelector('button').textContent.toLowerCase();
-                let contentText = item.querySelector('.glossary-content').textContent.toLowerCase();
-                if (titleText.includes(filter) || contentText.includes(filter)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
     </script>
 </body>
 </html>
