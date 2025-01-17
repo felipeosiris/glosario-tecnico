@@ -258,5 +258,21 @@
     {
         "title": "Analytics",
         "description": "Herramientas y servicios que permiten monitorear el comportamiento del usuario y el rendimiento de la aplicación."
+    },
+    {
+        "title": "Widget",
+        "description": "Componente de interfaz de usuario reutilizable y configurable que se puede usar en la interfaz de la aplicación."
+    },
+    {
+        "title": "Lazy Loading",
+        "description": "Técnica que carga solo los recursos o componentes cuando se necesitan, mejorando el rendimiento de la aplicación."
+    },
+    {
+        "title": "Native Modules",
+        "description": "Módulos específicos de cada plataforma (iOS/Android) que permiten acceder a funcionalidades nativas no cubiertas por React Native."
+    },
+    {
+        "title": "Cross-Platform Development",
+        "description": "Desarrollo de aplicaciones móviles que funcionan en múltiples plataformas (iOS, Android) utilizando una única base de código."
     }
 ]
