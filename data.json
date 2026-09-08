@@ -1,278 +1,462 @@
 [
-    {
-        "title": "CMS (Content Management System)",
-        "description": "Sistema que permite la creación, gestión, y modificación de contenido digital, generalmente para sitios web, sin necesidad de conocimientos técnicos avanzados."
-    },
-    {
-        "title": "CRM (Customer Relationship Management)",
-        "description": "Sistema para gestionar las relaciones con los clientes y potenciales clientes. Centraliza la información de los clientes, automatiza procesos de ventas, y mejora la gestión del servicio al cliente."
-    },
-    {
-        "title": "VTEX",
-        "description": "Plataforma de comercio electrónico que ofrece soluciones completas para tiendas en línea, incluyendo administración de inventario, pagos, y herramientas de marketing."
-    },
-    {
-        "title": "CSAT (Customer Satisfaction Score)",
-        "description": "Medida que evalúa la satisfacción del cliente con un producto o servicio específico. Se calcula generalmente con una encuesta en la que se pide a los clientes que califiquen su satisfacción en una escala del 1 al 5."
-    },
-    {
-        "title": "CES (Customer Effort Score)",
-        "description": "Medida que evalúa el esfuerzo que tiene que hacer un cliente para interactuar con una empresa, ya sea para resolver un problema, comprar un producto, o acceder a un servicio."
-    },
-    {
-        "title": "Pull Request (PR)",
-        "description": "Solicitud para fusionar código en la rama principal. Permite la revisión y aprobación de cambios antes de ser integrados."
-    },
-    {
-        "title": "Commit",
-        "description": "Guardar cambios en el repositorio de código. Un commit tiene un mensaje que describe los cambios realizados."
-    },
-    {
-        "title": "Branch",
-        "description": "Una versión independiente del código base donde se realizan desarrollos específicos sin afectar la rama principal."
-    },
-    {
-        "title": "Merge",
-        "description": "Proceso de integrar cambios de una rama a otra. Se suele hacer después de la aprobación de un PR."
-    },
-    {
-        "title": "Rebase",
-        "description": "Reaplicar commits de una rama sobre otra, lo que mantiene un historial de commits más limpio."
-    },
-    {
-        "title": "Continuous Integration (CI)",
-        "description": "Práctica de integrar código en un repositorio compartido varias veces al día, seguido de la ejecución automática de pruebas."
-    },
-    {
-        "title": "Continuous Deployment (CD)",
-        "description": "Proceso automatizado de desplegar aplicaciones a producción después de pasar por todas las pruebas en CI."
-    },
-    {
-        "title": "TestFlight (TF)",
-        "description": "Plataforma de Apple para la distribución y prueba de aplicaciones móviles antes de su lanzamiento en la App Store."
-    },
-    {
-        "title": "APK",
-        "description": "Archivo de paquete de Android (Android Package). Es el formato de archivo usado para distribuir e instalar aplicaciones en dispositivos Android."
-    },
-    {
-        "title": "IPA",
-        "description": "Archivo de aplicación de iOS (iOS App Store Package). Es el formato de archivo usado para distribuir e instalar aplicaciones en dispositivos iOS."
-    },
-    {
-        "title": "App Store",
-        "description": "Plataforma de distribución digital de Apple donde los usuarios pueden descargar e instalar aplicaciones en dispositivos iOS."
-    },
-    {
-        "title": "Play Store",
-        "description": "Plataforma de distribución digital de Google para dispositivos Android, donde los usuarios pueden descargar e instalar aplicaciones."
-    },
-    {
-        "title": "Unit Test",
-        "description": "Pruebas que validan el funcionamiento correcto de unidades individuales de código, como funciones o métodos."
-    },
-    {
-        "title": "Integration Test",
-        "description": "Pruebas que verifican que diferentes módulos o servicios de la aplicación funcionan juntos correctamente."
-    },
-    {
-        "title": "Build",
-        "description": "Proceso de compilar código fuente en un archivo ejecutable que se puede desplegar o probar."
-    },
-    {
-        "title": "Deployment",
-        "description": "Proceso de poner una nueva versión de una aplicación en un entorno de producción o pruebas."
-    },
-    {
-        "title": "Staging Environment",
-        "description": "Entorno que replica el entorno de producción para pruebas finales antes del lanzamiento."
-    },
-    {
-        "title": "Production Environment",
-        "description": "Entorno donde la aplicación está disponible para los usuarios finales."
-    },
-    {
-        "title": "Hotfix",
-        "description": "Cambios rápidos y críticos hechos en producción para resolver un problema urgente."
-    },
-    {
-        "title": "Refactoring",
-        "description": "Mejorar el código existente sin cambiar su funcionalidad externa para hacerlo más eficiente o legible."
-    },
-    {
-        "title": "Code Review",
-        "description": "Proceso de revisar código escrito por otros desarrolladores para asegurarse de que cumple con los estándares y funciona correctamente."
-    },
-    {
-        "title": "Debugging",
-        "description": "Proceso de identificar y corregir errores o problemas en el código."
-    },
-    {
-        "title": "API (Application Programming Interface)",
-        "description": "Conjunto de reglas y herramientas que permiten que diferentes aplicaciones se comuniquen entre sí."
-    },
-    {
-        "title": "SDK (Software Development Kit)",
-        "description": "Conjunto de herramientas y bibliotecas proporcionadas para el desarrollo de aplicaciones para un sistema específico."
-    },
-    {
-        "title": "IDE (Integrated Development Environment)",
-        "description": "Software que proporciona herramientas completas para escribir, compilar, y depurar código."
-    },
-    {
-        "title": "Git",
-        "description": "Sistema de control de versiones distribuido que permite a los desarrolladores gestionar el historial de su código."
-    },
-    {
-        "title": "Docker",
-        "description": "Plataforma que permite crear, desplegar y gestionar aplicaciones dentro de contenedores, facilitando la portabilidad y consistencia."
-    },
-    {
-        "title": "Kubernetes",
-        "description": "Sistema de orquestación de contenedores que automatiza la implementación, escalado y gestión de aplicaciones en contenedores."
-    },
-    {
-        "title": "Microservices",
-        "description": "Arquitectura de software que divide una aplicación en pequeños servicios independientes que se comunican entre sí."
-    },
-    {
-        "title": "Monolithic Architecture",
-        "description": "Enfoque de diseño de software donde todos los componentes de la aplicación están integrados en un único programa."
-    },
-    {
-        "title": "Caching",
-        "description": "Técnica para almacenar copias de datos temporales para mejorar el rendimiento y reducir la carga en los sistemas backend."
-    },
-    {
-        "title": "Latency",
-        "description": "Tiempo que tarda un paquete de datos en viajar desde su origen hasta su destino."
-    },
-    {
-        "title": "Throughput",
-        "description": "Cantidad de datos que se pueden procesar en un período de tiempo determinado."
-    },
-    {
-        "title": "Load Balancer",
-        "description": "Dispositivo o software que distribuye la carga de trabajo entre varios servidores para optimizar el uso de recursos."
-    },
-    {
-        "title": "Serverless",
-        "description": "Modelo de ejecución en la nube donde el proveedor gestiona automáticamente la infraestructura necesaria para ejecutar el código."
-    },
-    {
-        "title": "REST (Representational State Transfer)",
-        "description": "Estilo arquitectónico para diseñar APIs que se comunican a través de HTTP."
-    },
-    {
-        "title": "GraphQL",
-        "description": "Lenguaje de consulta para APIs que permite a los clientes pedir exactamente los datos que necesitan."
-    },
-    {
-        "title": "OAuth",
-        "description": "Protocolo de autenticación y autorización que permite acceso limitado a recursos de usuario sin compartir credenciales."
-    },
-    {
-        "title": "JWT (JSON Web Token)",
-        "description": "Estándar abierto para crear tokens de acceso que permiten la verificación de identidad en aplicaciones web."
-    },
-    {
-        "title": "CI/CD Pipeline",
-        "description": "Conjunto automatizado de procesos para desarrollar, probar, y desplegar código."
-    },
-    {
-        "title": "Pair Programming",
-        "description": "Técnica en la que dos desarrolladores trabajan juntos en una misma estación de trabajo, revisando y escribiendo código en conjunto."
-    },
-    {
-        "title": "Tech Debt (Technical Debt)",
-        "description": "Trabajo de desarrollo adicional que resulta de la elección de soluciones rápidas en lugar de soluciones más eficaces pero que requieren más tiempo."
-    },
-    {
-        "title": "Provisioning Profile",
-        "description": "Certificado de Apple que autoriza a los dispositivos iOS a ejecutar una aplicación específica."
-    },
-    {
-        "title": "Keystore",
-        "description": "Archivo que contiene certificados digitales privados y públicos para firmar APKs de Android antes de su publicación."
-    },
-    {
-        "title": "Xcode",
-        "description": "Entorno de desarrollo integrado (IDE) de Apple utilizado para desarrollar aplicaciones iOS y macOS."
-    },
-    {
-        "title": "Android Studio",
-        "description": "Entorno de desarrollo integrado (IDE) de Google utilizado para desarrollar aplicaciones Android."
-    },
-    {
-        "title": "Gradle",
-        "description": "Sistema de automatización de compilaciones utilizado principalmente para proyectos Android para manejar dependencias y construir APKs."
-    },
-    {
-        "title": "CocoaPods",
-        "description": "Gestor de dependencias para proyectos de iOS que facilita la integración de bibliotecas de terceros."
-    },
-    {
-        "title": "Swift Package Manager (SPM)",
-        "description": "Herramienta de Apple para gestionar dependencias y construir proyectos en Swift."
-    },
-    {
-        "title": "Flutter",
-        "description": "Framework de UI de Google que permite construir aplicaciones nativas para iOS y Android con una única base de código."
-    },
-    {
-        "title": "React Native",
-        "description": "Framework de JavaScript que permite construir aplicaciones nativas para iOS y Android utilizando React."
-    },
-    {
-        "title": "App Signing",
-        "description": "Proceso de firmar digitalmente un APK o IPA para asegurar la autenticidad de la aplicación antes de su distribución."
-    },
-    {
-        "title": "Emulator/Simulator",
-        "description": "Herramientas que permiten ejecutar y probar aplicaciones móviles en un entorno virtual sin necesidad de un dispositivo físico."
-    },
-    {
-        "title": "In-App Purchase (IAP)",
-        "description": "Funcionalidad que permite a los usuarios comprar contenido adicional o características dentro de una aplicación."
-    },
-    {
-        "title": "Push Notifications",
-        "description": "Mensajes enviados desde un servidor a un dispositivo móvil para alertar al usuario sobre eventos o actualizaciones en la aplicación."
-    },
-    {
-        "title": "App Bundle",
-        "description": "Formato de distribución utilizado por Google Play para optimizar el tamaño de la aplicación y reducir los recursos innecesarios en dispositivos específicos."
-    },
-    {
-        "title": "Firebase",
-        "description": "Plataforma de Google que proporciona una variedad de herramientas y servicios backend como bases de datos en tiempo real, autenticación, y notificaciones push."
-    },
-    {
-        "title": "Realm",
-        "description": "Base de datos móvil diseñada para aplicaciones con sincronización en tiempo real y almacenamiento local rápido."
-    },
-    {
-        "title": "Crashlytics",
-        "description": "Herramienta para monitorear y reportar errores y fallos en aplicaciones móviles, parte de Firebase."
-    },
-    {
-        "title": "Analytics",
-        "description": "Herramientas y servicios que permiten monitorear el comportamiento del usuario y el rendimiento de la aplicación."
-    },
-    {
-        "title": "Widget",
-        "description": "Componente de interfaz de usuario reutilizable y configurable que se puede usar en la interfaz de la aplicación."
-    },
-    {
-        "title": "Lazy Loading",
-        "description": "Técnica que carga solo los recursos o componentes cuando se necesitan, mejorando el rendimiento de la aplicación."
-    },
-    {
-        "title": "Native Modules",
-        "description": "Módulos específicos de cada plataforma (iOS/Android) que permiten acceder a funcionalidades nativas no cubiertas por React Native."
-    },
-    {
-        "title": "Cross-Platform Development",
-        "description": "Desarrollo de aplicaciones móviles que funcionan en múltiples plataformas (iOS, Android) utilizando una única base de código."
-    }
+  {
+    "title": "Omnicanal",
+    "category": "Arquitectura",
+    "description": "Modelo Chedraui donde tienda física, web, app nativa y Super Veloz comparten cuenta/pedido. El sales channel (sc) define el contexto comercial de cada experiencia."
+  },
+  {
+    "title": "AppNativa",
+    "category": "Arquitectura",
+    "description": "Equipo y producto de la app móvil Chedraui (iOS/Android) + BFF + CMS. Trabajo en Azure DevOps (boards, sprints, RFQ, UAT)."
+  },
+  {
+    "title": "BFF (Backend for Frontend)",
+    "category": "Arquitectura",
+    "description": "Capa Azure Functions (apisChedrauiApp) entre la app y VTEX/otros servicios. La app no habla directo con VTEX en el flujo normal: pasa por el BFF."
+  },
+  {
+    "title": "APIM (API Management)",
+    "category": "Arquitectura",
+    "description": "Gateway Azure que publica hosts DEV/QA/PROD hacia el BFF. Un 401 de APIM no siempre es Auth0 caído: puede ser política, suscripción o header."
+  },
+  {
+    "title": "VTEX",
+    "category": "Arquitectura",
+    "description": "Plataforma de e-commerce: catálogo, precios, stock, orderForm, simulation, promos y checkout. En Chedraui es el motor comercial detrás del BFF."
+  },
+  {
+    "title": "Auth0",
+    "category": "Cuenta",
+    "description": "Identidad del usuario (login, OTP, social, refresh). La sesión de comercio en VTEX es aparte: se obtiene tras intercambiar el token Auth0."
+  },
+  {
+    "title": "CMS (AppCMS)",
+    "category": "Catálogo",
+    "description": "Contenido configurable de home, vitrinas y colecciones sin redeploy de app. Si el bloque CMS está mal, la app “se ve rota” aunque el BFF esté sano."
+  },
+  {
+    "title": "Janis",
+    "category": "Cuenta",
+    "description": "Sistema de fulfillment/tracking de pedidos. Los estados Janis no siempre mapean 1:1 al copy de la UI; el salesChannel del pedido indica si fue Veloz u otro canal."
+  },
+  {
+    "title": "Monedero",
+    "category": "Cuenta",
+    "description": "Saldo / giftcard del cliente. consultaMonedero usa un gateway distinto al pipeline de getPLP; un 401 de monedero a veces se ignora a propósito en Android."
+  },
+  {
+    "title": "Sales channel (sc)",
+    "category": "Negocio",
+    "description": "Canal comercial VTEX. Header sc solo en modo Veloz; Chedraui normal usa canal default. DEV/QA Veloz suele ser sc=3; PROD Veloz sc=4 (confirmar en build)."
+  },
+  {
+    "title": "Trade policy",
+    "category": "Negocio",
+    "description": "Política comercial ligada al sales channel: precios, promos e inventario visibles para ese canal. Cambiar sc cambia la trade policy efectiva."
+  },
+  {
+    "title": "Seller",
+    "category": "Negocio",
+    "description": "Quién cumple el pedido (tienda/warehouse). getSeller resuelve el seller por zona. Seller \"1\" = Chedraui 1P; otros IDs = marketplace o tienda específica."
+  },
+  {
+    "title": "getSeller",
+    "category": "Negocio",
+    "description": "Endpoint BFF que, con geoCoordinates y tipo de dirección, determina el seller de fulfillment. Sin seller correcto → sin stock, precios raros o PLP vacío."
+  },
+  {
+    "title": "geoCoordinates",
+    "category": "Negocio",
+    "description": "Coordenadas de entrega en la app: [lng, lat]. Invertirlas vacía el PLP o resuelve mal el seller. Deben ser coherentes con CP y addressType."
+  },
+  {
+    "title": "SKU",
+    "category": "Catálogo",
+    "description": "Identificador de la variante vendible. En evidencia de bugs siempre reportar SKU + seller + sc + geo."
+  },
+  {
+    "title": "productId 6* (marketplace)",
+    "category": "Catálogo",
+    "description": "Productos cuyo productId empieza con 6: reglas especiales de precio (pesos, sin ÷100), availability siempre true en PLP y sellers de marketplace."
+  },
+  {
+    "title": "Precios ÷100",
+    "category": "Negocio",
+    "description": "En grocery, price / listPrice / sellingPrice de simulation vienen en centavos VTEX y el BFF los divide entre 100 a pesos. SKU 6* ya vienen en pesos."
+  },
+  {
+    "title": "listPrice / sellingPrice",
+    "category": "Negocio",
+    "description": "listPrice = precio tachado (si list==price en VTEX, el BFF suele devolver listPrice=0). sellingPrice = precio de venta; en pesables PLP a menudo muestra precio por kg."
+  },
+  {
+    "title": "unitMultiplier",
+    "category": "Negocio",
+    "description": "Multiplicador de porción en pesables (kg). price = precio por kg; sellingPrice en VTEX suele ser price × unitMultiplier. maxQuantity considera unitMultiplier."
+  },
+  {
+    "title": "Pesables",
+    "category": "Negocio",
+    "description": "Productos por peso (fruta/verdura). No confundir el precio por kg del PLP con el total de la porción cobrada en carrito."
+  },
+  {
+    "title": "Máximo de venta",
+    "category": "Catálogo",
+    "description": "Spec VTEX. En PLP/PDP, maxQuantity ≈ spec ÷ unitMultiplier. En marketplace 6* suele fijarse en 50."
+  },
+  {
+    "title": "Tipo de envío / No restringido",
+    "category": "Negocio",
+    "description": "Spec que dispara lógica DHL/marketplace. Con \"No restringido\" el BFF puede forzar seller \"1\" en simulation y marcar isDHL según SLAs."
+  },
+  {
+    "title": "isDHL",
+    "category": "Negocio",
+    "description": "Flag de logística especial (p. ej. colchones/muebles). En PLP: \"No restringido\" y sin SLA pickup-in-point. La lógica PDP puede diferir."
+  },
+  {
+    "title": "isMarketPlace",
+    "category": "Negocio",
+    "description": "True cuando el seller default no es \"1\" (producto no Chedraui 1P). Si sellerDefault.sellerId == \"1\", isMarketPlace = false."
+  },
+  {
+    "title": "Simulation",
+    "category": "Catálogo",
+    "description": "Llamada VTEX que resuelve precio, stock y logística para seller/geo. Simulation 500 puede devolver products [] con facets OK → home/colección “vacía” engañosa."
+  },
+  {
+    "title": "available / withoutStock / cannotBeDelivered",
+    "category": "Catálogo",
+    "description": "Estados de availability de simulation. PLP filtra price 0/nulos. getPDP puede devolver code -1 genérico si simulation falla (known issue)."
+  },
+  {
+    "title": "PLP (Product List Page)",
+    "category": "Catálogo",
+    "description": "Listado/búsqueda: getPLP con query, collection, facet, page, seller y geo. Siempre enviar seller + geo coherentes. Orden: disponibles primero."
+  },
+  {
+    "title": "PDP (Product Detail Page)",
+    "category": "Catálogo",
+    "description": "Detalle de producto: variantes, maxQuantity, teasers y promos más ricas que en PLP. Variantes ropa: inventario por SKU puede apagar talla."
+  },
+  {
+    "title": "Facets",
+    "category": "Catálogo",
+    "description": "Filtros de facetas en PLP. Known issue: facets pueden no respetar el sales channel (sc)."
+  },
+  {
+    "title": "Colección",
+    "category": "Catálogo",
+    "description": "Conjunto de productos curado (no es una query libre). IDs viven en CMS/sheets. Colección vacía en PROD es hallazgo de contenido, no solo de app."
+  },
+  {
+    "title": "Home Chedraui",
+    "category": "Catálogo",
+    "description": "Pantalla principal armada por CMS (banners, vitrinas, colecciones) + getVersionApp. Negocio la configura sin release de app."
+  },
+  {
+    "title": "Category tree",
+    "category": "Catálogo",
+    "description": "Árbol de departamentos/categorías desde VTEX. Deep links deben mapear a query o colección válida; paridad iOS/Android en labels y rutas."
+  },
+  {
+    "title": "Super Veloz",
+    "category": "Veloz",
+    "description": "Experiencia de delivery rápido con catálogo, logística y sales channel propios. Es un modo/sesión separado, no solo un filtro de home."
+  },
+  {
+    "title": "isVelozAvailable",
+    "category": "Veloz",
+    "description": "El BFF lo calcula en updateShippingOrderForm solo si sc ≠ canal default: getSeller + simulation del SKU pivote con availability == available."
+  },
+  {
+    "title": "FAST_PIVOT_SKU / SKU pivote",
+    "category": "Veloz",
+    "description": "SKU usado para probar cobertura Veloz (simulation del pivote). Sin cobertura → UI “no disponible”, no un catálogo mentiroso."
+  },
+  {
+    "title": "OrderForm dual",
+    "category": "Veloz",
+    "description": "Hay orderFormId Chedraui y orderFormId Veloz independientes. Crear OF con el sc del modo activo; no cruzar slots ni reusar el mismo id en ambos."
+  },
+  {
+    "title": "OrderForm",
+    "category": "Checkout",
+    "description": "Carrito VTEX (ítems, logisticsInfo, totalizers, mensajes). Post-compra no reusar el mismo orderForm sin reset."
+  },
+  {
+    "title": "createOrderForm",
+    "category": "Checkout",
+    "description": "Crea el carrito en el sales channel del modo activo. Cookies VTEX se comparten entre modos; el orderForm no."
+  },
+  {
+    "title": "Switch Veloz ↔ Chedraui",
+    "category": "Veloz",
+    "description": "Cambio de modo que dispara updateShippingOrderForm. Un HTTP 401 del switch no siempre es Auth0 muerto; iOS puede hacer logout sin refresh tras varios 401."
+  },
+  {
+    "title": "ScHeaderInterceptor",
+    "category": "Veloz",
+    "description": "Interceptor Android que agrega header sc solo si la sesión Veloz está activa. En Chedraui normal no debe forzar sc."
+  },
+  {
+    "title": "Localizador (Veloz)",
+    "category": "Veloz",
+    "description": "En Veloz el localizador es flujo de domicilio (no el pickup de Chedraui). Debe abrir direcciones; “tap que no hace nada” es bug recurrente de paridad."
+  },
+  {
+    "title": "Feature flag",
+    "category": "Veloz",
+    "description": "Interruptor remoto de features (p. ej. Veloz). Flag apagado ≠ bug de red. Estados típicos: cargando / sin cobertura / con cobertura."
+  },
+  {
+    "title": "addressType",
+    "category": "Checkout",
+    "description": "Tipo de dirección: residential (domicilio) vs search/pickup (recoger en tienda). Cambia isPickup en getSeller y la logística."
+  },
+  {
+    "title": "Pickup / Recoger en tienda",
+    "category": "Checkout",
+    "description": "Modalidad donde el seller/SLA es de tienda. En checkout pickup y match de tienda hay reglas distintas a domicilio."
+  },
+  {
+    "title": "updateShippingOrderForm",
+    "category": "Checkout",
+    "description": "Actualiza dirección/shipping del carrito. Puede responder HTTP 200 con error en body. Sin updateLogistic el BFF puede reset + re-add con seller nuevo."
+  },
+  {
+    "title": "updateLogistic",
+    "category": "Checkout",
+    "description": "Cuando es true, setea SLA/ventana (deliveryWindow) sobre logisticsInfo. Veloz usa costos/ventanas distintos al grocery."
+  },
+  {
+    "title": "SLA / deliveryWindow",
+    "category": "Checkout",
+    "description": "Ventana o promesa de entrega. Preservar el slot al recrear orderForm cuando aplique. Veloz tiene ventanas propias."
+  },
+  {
+    "title": "Totalizers",
+    "category": "Checkout",
+    "description": "Desglose del carrito: subtotal, envío, descuentos, bonificaciones. No hardcodear montos de envío gratis: leer respuesta de checkout."
+  },
+  {
+    "title": "unavailableItemFulfillment",
+    "category": "Checkout",
+    "description": "Mensaje VTEX: ítem no se puede cumplir en esa zona/seller. Debe mostrarse en UI. Puede hacer isVelozAvailable=false aunque haya seller en zona."
+  },
+  {
+    "title": "Envío gratis",
+    "category": "Checkout",
+    "description": "Umbrales y flags de free shipping configurados en BFF (constantes de entorno). La barra de progreso usa totalizers, no montos fijos en app."
+  },
+  {
+    "title": "Cupones",
+    "category": "Checkout",
+    "description": "getActiveCoupon / apply coupon. El BFF filtra cupones activos (no todos los de VTEX). Persistencia incorrecta entre Veloz/Chedraui es bug frecuente."
+  },
+  {
+    "title": "Promoción / teaser",
+    "category": "Checkout",
+    "description": "Reglas de descuento visibles en PLP/PDP. Deduplicar por type. Promo type \"mi\" (bonificación) no debe bajar el precio display igual que un %."
+  },
+  {
+    "title": "Bonificación MiChedraui (tipo mi)",
+    "category": "Checkout",
+    "description": "Promo que acredita beneficio/monedero sin ser un descuento % clásico en el precio tachado. No tratarla como promo porcentual en display."
+  },
+  {
+    "title": "TYP (Thank You Page)",
+    "category": "Checkout",
+    "description": "Pantalla post-pago. Debe distinguir éxito parcial vs total. El sales channel queda en el historial del pedido (Janis/VTEX)."
+  },
+  {
+    "title": "Checkout en 3 pasos",
+    "category": "Checkout",
+    "description": "getCheckoutOrderForm modela pasos 1/2/3 de disponibilidad y logística, totalizers y mensajes. Teléfono en step2 y validaciones de coords son sensibles."
+  },
+  {
+    "title": "vtex-cookie-key / vtex-cookie-token",
+    "category": "Cuenta",
+    "description": "Headers de sesión comercio: key ≈ JWT VTEX; token ≈ userId. getAuthToken intercambia Auth0 → sesión VTEX. Cookie inválida (no eyJ…) no debe enviarse."
+  },
+  {
+    "title": "getAuthToken",
+    "category": "Cuenta",
+    "description": "Endpoint que convierte identidad Auth0 en cookies/sesión VTEX usadas por el BFF y checkout."
+  },
+  {
+    "title": "Wishlist / Listas",
+    "category": "Cuenta",
+    "description": "Favoritos y listas de compras. Al resolver precios usan seller/geo actuales. Endpoints de perfil validan cookie → HTTP 401 real si falla."
+  },
+  {
+    "title": "Club Chedraui / Membresías",
+    "category": "Cuenta",
+    "description": "Planes de membresía vía BFF Mi Cuenta / servicios IO. SKUs digitales y umbrales 1P afectan beneficios en checkout."
+  },
+  {
+    "title": "CSAT",
+    "category": "Calidad",
+    "description": "Customer Satisfaction Score post-pedido (encuesta de satisfacción). En Veloz queda ligada a orderId + canal VELOZ_APP. No confundir con CES."
+  },
+  {
+    "title": "CES",
+    "category": "Calidad",
+    "description": "Customer Effort Score: mide el esfuerzo del cliente. En evidencia UAT CSAT y CES no son intercambiables."
+  },
+  {
+    "title": "GenericResponse { code, message, data }",
+    "category": "Técnica",
+    "description": "Envelope del BFF. code de negocio ≠ status HTTP. updateShippingOrderForm puede ser HTTP 200 con code de error en body."
+  },
+  {
+    "title": "code -1",
+    "category": "Técnica",
+    "description": "Error genérico del BFF (p. ej. PDP cuando simulation falla). Insuficiente para debug: revisar logs/VTEX y known issues."
+  },
+  {
+    "title": "RequestContextHolder",
+    "category": "Técnica",
+    "description": "Contexto por request en el BFF: carga sales channel (sc) y datos de sesión usados por ValidationVtexServiceImpl y endpoints."
+  },
+  {
+    "title": "Empathy",
+    "category": "Catálogo",
+    "description": "Motor/servicio de búsqueda/relevancia usado en el ecosistema de catálogo (junto a VTEX). Coordinar con BFF pricing/seller."
+  },
+  {
+    "title": "Weni (carrito abandonado)",
+    "category": "Técnica",
+    "description": "Integración outbound (WhatsApp) para recuperar carritos abandonados. No confundir con el carrito activo de la sesión en app."
+  },
+  {
+    "title": "Deeplink / Universal Link",
+    "category": "Técnica",
+    "description": "URLs que abren Home, PLP o PDP. Dominio raíz puede forzar Home. PDP usa path de producto VTEX; homologar iOS/Android y matriz de marketing."
+  },
+  {
+    "title": "RFQ (Ready for QA)",
+    "category": "Proceso",
+    "description": "Estado Azure: listo para QA. No mandar a RFQ sin evidencia reproducible (ambiente, build, SKU, seller, sc, geo)."
+  },
+  {
+    "title": "Reopen",
+    "category": "Proceso",
+    "description": "Bug/HU reabierto tras fallar QA o UAT. Suele indicar evidencia incompleta o regresión."
+  },
+  {
+    "title": "UAT",
+    "category": "Proceso",
+    "description": "User Acceptance Testing. En Veloz: guardar orderId, versión de app y canal. Colecciones vacías en PROD son hallazgo de contenido."
+  },
+  {
+    "title": "Ambientes DEV · QA · PROD",
+    "category": "Proceso",
+    "description": "Hosts APIM, Auth0 y BFF distintos. BFF QA puede apuntar a VTEX PROD: no asumas QA = sandbox de catálogo. Nunca mezclar credenciales PROD en exploratorio."
+  },
+  {
+    "title": "Known issue",
+    "category": "Proceso",
+    "description": "Bug documentado (simulation 500, PDP -1, facets/sc, 401 APIM). Revisar vault antes de abrir ticket duplicado."
+  },
+  {
+    "title": "Evidencia de bug",
+    "category": "Proceso",
+    "description": "Mínimo: ambiente + build + SO + sc + seller + geo + SKU + esperado/actual + captura. No reportar PROD si se probó TestFlight/QA sin decirlo."
+  },
+  {
+    "title": "TestFlight (TF)",
+    "category": "Móvil",
+    "description": "Distribución de builds iOS pre-App Store. Indicar siempre versión/build en evidencia."
+  },
+  {
+    "title": "APK / AAB",
+    "category": "Móvil",
+    "description": "Paquete Android (APK) o Android App Bundle (AAB) para Play Store / distribución interna."
+  },
+  {
+    "title": "IPA",
+    "category": "Móvil",
+    "description": "Paquete de app iOS para instalación/distribución (Ad Hoc, enterprise o App Store)."
+  },
+  {
+    "title": "Pull Request (PR)",
+    "category": "Móvil",
+    "description": "Solicitud para fusionar código tras code review. En AppNativa suele ir ligada a HU/bug de Azure."
+  },
+  {
+    "title": "CI/CD",
+    "category": "Móvil",
+    "description": "Integración y despliegue continuos: build, tests y release automatizados (pipelines Azure/GitHub)."
+  },
+  {
+    "title": "Hotfix",
+    "category": "Móvil",
+    "description": "Cambio urgente en producción para corregir un incidente crítico (app store o BFF)."
+  },
+  {
+    "title": "Feature parity",
+    "category": "Proceso",
+    "description": "Misma regla de negocio y UX en iOS y Android (localizador Veloz, headers sc, deep links). Muchos bugs son de paridad."
+  },
+  {
+    "title": "Placeholder Polanco",
+    "category": "Negocio",
+    "description": "Ubicación/datos de prueba frecuentes en QA. No confundir con cobertura real del usuario; coords inválidas rompen seller/PLP."
+  },
+  {
+    "title": "JEWEL",
+    "category": "Catálogo",
+    "description": "Familia/modal de productos con reglas propias de seller/variantes en PDP (inventario y presentación distintos al grocery)."
+  },
+  {
+    "title": "MATTRESSES / FURNITURE",
+    "category": "Negocio",
+    "description": "Modales de catálogo con logística DHL/simulation especial. No aplicar las mismas reglas de grocery ni de 6* a ciegas."
+  },
+  {
+    "title": "Preventa",
+    "category": "Negocio",
+    "description": "Producto o campaña vendida antes de disponibilidad física completa; validar reglas de stock, mensajes y fechas en PLP/PDP/checkout."
+  },
+  {
+    "title": "AllProductsOutOfStock",
+    "category": "Checkout",
+    "description": "Condición/mensaje cuando ningún ítem del carrito tiene fulfillment. Distinto de un solo unavailableItemFulfillment."
+  },
+  {
+    "title": "CRM",
+    "category": "Negocio",
+    "description": "Gestión de relación con el cliente (datos, campañas, servicio). En omnicanal se cruza con cuenta, monedero y postventa."
+  },
+  {
+    "title": "Azure Boards / Sprint",
+    "category": "Proceso",
+    "description": "Herramienta y cadencia de trabajo AppNativa. HU/bugs con estados claros; escalar a dueño de capa (iOS/Android/BFF/CMS/QA), no “ping a todos”."
+  },
+  {
+    "title": "Postman (contratos)",
+    "category": "Técnica",
+    "description": "Colecciones de referencia de endpoints BFF/VTEX/Auth0. Fuente de verdad de contratos antes de discutir “la app está mal”."
+  },
+  {
+    "title": "Xcode / Android Studio",
+    "category": "Móvil",
+    "description": "IDEs oficiales iOS y Android del equipo AppNativa para builds, debugging y firma."
+  },
+  {
+    "title": "Push Notifications",
+    "category": "Móvil",
+    "description": "Mensajes remotos al dispositivo (promos, pedido, reenganche). Coordinar con backends de mensajería y permisos del SO."
+  },
+  {
+    "title": "Analytics",
+    "category": "Móvil",
+    "description": "Instrumentación de eventos de producto (Home, Veloz switch, checkout). Salvador/iOS y Android mantienen paridad de tracking."
+  },
+  {
+    "title": "Crashlytics",
+    "category": "Móvil",
+    "description": "Monitoreo de crashes. Útil para correlacionar incidentes post-release con build y dispositivo."
+  }
 ]
