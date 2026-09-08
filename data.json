@@ -1,8 +1,23 @@
 [
   {
-    "title": "Omnicanal",
+    "title": "APIM (API Management)",
     "category": "Arquitectura",
-    "description": "Modelo Chedraui donde tienda física, web, app nativa y Super Veloz comparten cuenta/pedido. El sales channel (sc) define el contexto comercial de cada experiencia."
+    "description": "Gateway Azure que publica hosts DEV/QA/PROD hacia el BFF. Un 401 de APIM no siempre es Auth0 caído: puede ser política, suscripción o header."
+  },
+  {
+    "title": "apisChedrauiApp",
+    "category": "Arquitectura",
+    "description": "Proyecto Java 17 / Spring Boot 3.3 empaquetado como Azure Functions (~74 HTTP triggers) que implementa el BFF de la app. Lógica central en ValidationVtexServiceImpl; no persiste catálogo ni precios."
+  },
+  {
+    "title": "ApiVtexServiceImpl",
+    "category": "Arquitectura",
+    "description": "Cliente HTTP VTEX del BFF: URLs con {salesChannel} desde RequestContextHolder, retries 429, IS, simulation, checkout, Master Data, pickup regions."
+  },
+  {
+    "title": "appCh",
+    "category": "Arquitectura",
+    "description": "Rutas APIM /appCh/* con header applogin: versión mínima (getVersionApp), confirmación de edad y clasificación/CSAT de pedidos. Fuera del prefijo backend-app."
   },
   {
     "title": "AppNativa",
@@ -10,14 +25,39 @@
     "description": "Equipo y producto de la app móvil Chedraui (iOS/Android) + BFF + CMS. Trabajo en Azure DevOps (boards, sprints, RFQ, UAT)."
   },
   {
+    "title": "AuthorizationLevel.ANONYMOUS",
+    "category": "Arquitectura",
+    "description": "Nivel de auth de Azure Functions en handlers del BFF. No significa endpoint público: RequestContextAspect + APIM backendLogin hacen la autorización real."
+  },
+  {
     "title": "BFF (Backend for Frontend)",
     "category": "Arquitectura",
     "description": "Capa Azure Functions (apisChedrauiApp) entre la app y VTEX/otros servicios. La app no habla directo con VTEX en el flujo normal: pasa por el BFF."
   },
   {
-    "title": "APIM (API Management)",
+    "title": "chapimngtqa / chedapimng-prod",
     "category": "Arquitectura",
-    "description": "Gateway Azure que publica hosts DEV/QA/PROD hacia el BFF. Un 401 de APIM no siempre es Auth0 caído: puede ser política, suscripción o header."
+    "description": "Hosts APIM: QA chapimngtqa.../backend-app (y backend-app-dev), PROD chedapimng-prod.../backend-app. Forma URL: {{baseUrl}}/{{apiPrefix}}/{functionName}."
+  },
+  {
+    "title": "chfnstadisticsys",
+    "category": "Arquitectura",
+    "description": "Dashboard Angular 21 (SSR) interno de estadísticas/admin. Consume el BFF vía APIM; páginas cms, smed, appch, appbackend, pushNotifications."
+  },
+  {
+    "title": "Omnicanal",
+    "category": "Arquitectura",
+    "description": "Modelo Chedraui donde tienda física, web, app nativa y Super Veloz comparten cuenta/pedido. El sales channel (sc) define el contexto comercial de cada experiencia."
+  },
+  {
+    "title": "RequestContextAspect",
+    "category": "Arquitectura",
+    "description": "Aspecto @Around de todos los handlers: lee header sc, valida cookies VTEX (salvo exclusiones) y limpia ThreadLocals al final. Por eso los HttpTrigger usan AuthorizationLevel.ANONYMOUS: la auth la hace el aspect, no Functions."
+  },
+  {
+    "title": "ValidationVtexServiceImpl",
+    "category": "Arquitectura",
+    "description": "Servicio monolítico (~4K líneas) donde viven ~95% de las reglas de PLP, PDP, seller, checkout, shipping y Superveloz. Es la referencia de código al diagnosticar comportamiento “raro” del BFF."
   },
   {
     "title": "VTEX",
@@ -25,9 +65,114 @@
     "description": "Plataforma de e-commerce: catálogo, precios, stock, orderForm, simulation, promos y checkout. En Chedraui es el motor comercial detrás del BFF."
   },
   {
-    "title": "Auth0",
-    "category": "Cuenta",
-    "description": "Identidad del usuario (login, OTP, social, refresh). La sesión de comercio en VTEX es aparte: se obtiene tras intercambiar el token Auth0."
+    "title": "VTEX IO (workspace membresias)",
+    "category": "Arquitectura",
+    "description": "App IO en workspace membresias (p. ej. membresias--chedrauimxqa.myvtex.com) con GET /_v/membership y POST change-plan. Hoy la app/Postman pegan a IO; el to-be es APIM → BFF → IO."
+  },
+  {
+    "title": "vtexcommercestable",
+    "category": "Arquitectura",
+    "description": "Hosts VTEX de cuenta (chedrauimx / chedrauimxapp .vtexcommercestable.com.br). Simulation, regiones y Master Data a menudo usan host fijo fuera de vtexBaseUrl de Postman."
+  },
+  {
+    "title": "AreaPath / IterationPath",
+    "category": "Azure",
+    "description": "Campos de clasificación de WI: área (equipo/Choucair) e iteración (Sprint N). El daily los usa junto a Tags para % por tema (Veloz, Direcciones, Checkout, Precios, Analytics)."
+  },
+  {
+    "title": "chedrauiOmnicanal / AppNativa",
+    "category": "Azure",
+    "description": "Org Azure DevOps chedrauiOmnicanal y proyecto AppNativa. Links work items: /_workitems/edit/{id}. PAT vía AZDO_ORG/AZDO_PROJECT/AZDO_PAT (nunca en notas)."
+  },
+  {
+    "title": "En pruebas",
+    "category": "Azure",
+    "description": "Estado de work item en ciclo QA (junto a Ready for QA). Señal de bucket QA en clasificación del daily AppNativa."
+  },
+  {
+    "title": "Impediment",
+    "category": "Azure",
+    "description": "Bloqueo en Azure Boards. Riesgo típico del daily si quedan abiertos (junto a Reopen de checkout/payment)."
+  },
+  {
+    "title": "Incident (Work Item)",
+    "category": "Azure",
+    "description": "WorkItemType Incident en AppNativa (org chedrauiOmnicanal). El daily lo consulta aparte de Bug por ChangedDate @Today-1."
+  },
+  {
+    "title": "IT-ChoucairTeam",
+    "category": "Azure",
+    "description": "AreaPath de QA externo Choucair. Señales de bucket QA en daily junto a tags UAT, Test Case y estados En pruebas / Ready for QA."
+  },
+  {
+    "title": "PBI / Enabler / HU Técnica",
+    "category": "Azure",
+    "description": "Tipos de trabajo AppNativa: PBI/feature, Enabler técnico, HU Técnica (ej. Mercado Pago iOS, regionalización PLP, manejo de excepciones 401)."
+  },
+  {
+    "title": "Ready for UAT",
+    "category": "Azure",
+    "description": "Estado post-QA hacia aceptación de negocio (tags UAT, Areas sin Choucair). Distinto de Ready for QA (cola de prueba)."
+  },
+  {
+    "title": "Ready to Integrate (RTI)",
+    "category": "Azure",
+    "description": "Estado Azure de trabajo listo para integrar/merge. En daily se cuenta en throughput junto a Done y Ready for UAT."
+  },
+  {
+    "title": "WIQL",
+    "category": "Azure",
+    "description": "Lenguaje de consultas de work items. Daily: POST wit/wiql luego GET workitems; ventanas @Today-1, estados RFQ, bugs Created, Incident changed."
+  },
+  {
+    "title": "CES",
+    "category": "Calidad",
+    "description": "Customer Effort Score: mide el esfuerzo del cliente. En evidencia UAT CSAT y CES no son intercambiables."
+  },
+  {
+    "title": "CSAT",
+    "category": "Calidad",
+    "description": "Customer Satisfaction Score post-pedido (encuesta de satisfacción). En Veloz queda ligada a orderId + canal VELOZ_APP. No confundir con CES."
+  },
+  {
+    "title": "getPDP code -1 (known issue)",
+    "category": "Calidad",
+    "description": "Cuando simulation es cannotBeDelivered/withoutStock, getPDP puede devolver code -1 genérico en lugar de un code de no-disponible. Verificado post-deploy 2026-05-27."
+  },
+  {
+    "title": "getSeller → \"1\" incorrecto",
+    "category": "Calidad",
+    "description": "Known issue: en coords CDMX/Tabasco (y similares) getSeller puede devolver \"1\" en lugar del whitelabel regional. Distorsiona stock/precios de sesión."
+  },
+  {
+    "title": "Inyectado",
+    "category": "Calidad",
+    "description": "Clasificación de bug/incidente reportado sin fix claro o “inyectado” al sprint. Riesgo típico a mirar en el daily Azure."
+  },
+  {
+    "title": "ORD021.5",
+    "category": "Calidad",
+    "description": "Caso/riesgo documentado: simulation con sc=3 vs seller \"1\" en telefonía (promos $200x$1000). Correlacionar sc, seller y SKU al evidenciar precios PLP vs PDP."
+  },
+  {
+    "title": "saveClasificationCatalog / getClasificationByPedido",
+    "category": "Calidad",
+    "description": "Endpoints appCh de encuesta post-pedido (rating, mejoras, SO, versionApp). Ligado a CSAT/CES; en Veloz evidencia con orderId + canal VELOZ_APP."
+  },
+  {
+    "title": "Sequence contains no matching element",
+    "category": "Calidad",
+    "description": "Error VTEX simulation HTTP 500 (code 001, KI #745047). Impacto Chedraui: getPLP products:[] con facets OK → colección/home vacía engañosa. Intermitente con whitelabel + batch mixto."
+  },
+  {
+    "title": "available / withoutStock / cannotBeDelivered",
+    "category": "Catálogo",
+    "description": "Estados de availability de simulation. PLP filtra price 0/nulos. getPDP puede devolver code -1 genérico si simulation falla (known issue)."
+  },
+  {
+    "title": "Category tree",
+    "category": "Catálogo",
+    "description": "Árbol de departamentos/categorías desde VTEX. Deep links deben mapear a query o colección válida; paridad iOS/Android en labels y rutas."
   },
   {
     "title": "CMS (AppCMS)",
@@ -35,69 +180,114 @@
     "description": "Contenido configurable de home, vitrinas y colecciones sin redeploy de app. Si el bloque CMS está mal, la app “se ve rota” aunque el BFF esté sano."
   },
   {
-    "title": "Janis",
-    "category": "Cuenta",
-    "description": "Sistema de fulfillment/tracking de pedidos. Los estados Janis no siempre mapean 1:1 al copy de la UI; el salesChannel del pedido indica si fue Veloz u otro canal."
-  },
-  {
-    "title": "Monedero",
-    "category": "Cuenta",
-    "description": "Saldo / giftcard del cliente. consultaMonedero usa un gateway distinto al pipeline de getPLP; un 401 de monedero a veces se ignora a propósito en Android."
-  },
-  {
-    "title": "Sales channel (sc)",
-    "category": "Negocio",
-    "description": "Canal comercial VTEX. Header sc solo en modo Veloz; Chedraui normal usa canal default. DEV/QA Veloz suele ser sc=3; PROD Veloz sc=4 (confirmar en build)."
-  },
-  {
-    "title": "Trade policy",
-    "category": "Negocio",
-    "description": "Política comercial ligada al sales channel: precios, promos e inventario visibles para ese canal. Cambiar sc cambia la trade policy efectiva."
-  },
-  {
-    "title": "Seller",
-    "category": "Negocio",
-    "description": "Quién cumple el pedido (tienda/warehouse). getSeller resuelve el seller por zona. Seller \"1\" = Chedraui 1P; otros IDs = marketplace o tienda específica."
-  },
-  {
-    "title": "getSeller",
-    "category": "Negocio",
-    "description": "Endpoint BFF que, con geoCoordinates y tipo de dirección, determina el seller de fulfillment. Sin seller correcto → sin stock, precios raros o PLP vacío."
-  },
-  {
-    "title": "geoCoordinates",
-    "category": "Negocio",
-    "description": "Coordenadas de entrega en la app: [lng, lat]. Invertirlas vacía el PLP o resuelve mal el seller. Deben ser coherentes con CP y addressType."
-  },
-  {
-    "title": "SKU",
+    "title": "Colección",
     "category": "Catálogo",
-    "description": "Identificador de la variante vendible. En evidencia de bugs siempre reportar SKU + seller + sc + geo."
+    "description": "Conjunto de productos curado (no es una query libre). IDs viven en CMS/sheets. Colección vacía en PROD es hallazgo de contenido, no solo de app."
   },
   {
-    "title": "productId 6* (marketplace)",
+    "title": "Commercial offer",
     "category": "Catálogo",
-    "description": "Productos cuyo productId empieza con 6: reglas especiales de precio (pesos, sin ÷100), availability siempre true en PLP y sellers de marketplace."
+    "description": "Oferta comercial VTEX del seller default. En productos 6* precios del offer van en pesos (sin ÷100); grocery toma precios de simulation en centavos."
   },
   {
-    "title": "Precios ÷100",
-    "category": "Negocio",
-    "description": "En grocery, price / listPrice / sellingPrice de simulation vienen en centavos VTEX y el BFF los divide entre 100 a pesos. SKU 6* ya vienen en pesos."
+    "title": "contentPackage",
+    "category": "Catálogo",
+    "description": "Campo de producto desde spec VTEX \"Contenido del empaque\", expuesto en enriquecimiento PLP/PDP junto a especificaciones allSpecifications."
   },
   {
-    "title": "listPrice / sellingPrice",
-    "category": "Negocio",
-    "description": "listPrice = precio tachado (si list==price en VTEX, el BFF suele devolver listPrice=0). sellingPrice = precio de venta; en pesables PLP a menudo muestra precio por kg."
+    "title": "discountHighLight / productClusters",
+    "category": "Catálogo",
+    "description": "Fuentes de teasers en PLP/PDP además de promotionTeasers. Clusters filtrados incluyen \"envío gratis\" y \"te descontamos\"; bonificación simulation solo activa en PDP."
   },
   {
-    "title": "unitMultiplier",
-    "category": "Negocio",
-    "description": "Multiplicador de porción en pesables (kg). price = precio por kg; sellingPrice en VTEX suele ser price × unitMultiplier. maxQuantity considera unitMultiplier."
+    "title": "Empathy",
+    "category": "Catálogo",
+    "description": "Motor/servicio de búsqueda/relevancia usado en el ecosistema de catálogo (junto a VTEX). Coordinar con BFF pricing/seller."
   },
   {
-    "title": "Pesables",
-    "category": "Negocio",
-    "description": "Productos por peso (fruta/verdura). No confundir el precio por kg del PLP con el total de la porción cobrada en carrito."
+    "title": "EMPATHY_SEARCH_ENABLED",
+    "category": "Catálogo",
+    "description": "Feature flag env para motor Empathy de búsqueda/relevancia. Flag apagado ≠ bug de red; coordinar con Ricardo (pricing/seller/Empathy)."
+  },
+  {
+    "title": "Facets",
+    "category": "Catálogo",
+    "description": "Filtros de facetas en PLP. Known issue: facets pueden no respetar el sales channel (sc)."
+  },
+  {
+    "title": "generateProductsPLP",
+    "category": "Catálogo",
+    "description": "Pipeline compartido de enriquecimiento (specs, precios, DHL, promos, availability) reutilizado por PLP, vitrinas, listas y JEWEL parcial."
+  },
+  {
+    "title": "getCategoryTree",
+    "category": "Catálogo",
+    "description": "GET del árbol de departamentos/categorías VTEX (categoryId opcional). Base del mega menú y de deep links a PLP."
+  },
+  {
+    "title": "getInventorySku / isVariantAvailable",
+    "category": "Catálogo",
+    "description": "En PDP ropa, por cada SKU de talla se consulta inventario del seller; 0 o error → isVariantAvailable=false y la talla se apaga en UI."
+  },
+  {
+    "title": "getJEWEL",
+    "category": "Catálogo",
+    "description": "POST de similares/recomendados: getJewelSearch → PDP async por URL → siempre reasigna sellerDefaultId con searchSellerProduct al final. Usado en carruseles de PDP."
+  },
+  {
+    "title": "getPDP",
+    "category": "Catálogo",
+    "description": "POST BFF por linkText + seller + geo. Incluye variantes ropa (inventario por SKU), promos/bonificación completas y maxQuantity. Sin items o simulation fallida → code -1 genérico (known issue)."
+  },
+  {
+    "title": "getPLP",
+    "category": "Catálogo",
+    "description": "POST BFF: Intelligent Search + simulation batch + enriquecimiento async + facets separados. Body: query/collection/facet/page/count/seller/geoCoordinates. Ordena disponibles primero."
+  },
+  {
+    "title": "getSearchSuggestions / getTopSearches",
+    "category": "Catálogo",
+    "description": "GET proxies a VTEX de sugerencias y top searches. No pasan por el pipeline de simulation de getPLP."
+  },
+  {
+    "title": "getShopWindows",
+    "category": "Catálogo",
+    "description": "POST de vitrinas CMS/VTEX; enriquece productos con la misma lógica generateProductsPLP (precios, DHL, promos, availability)."
+  },
+  {
+    "title": "getVersionApp (CMS / appCh)",
+    "category": "Catálogo",
+    "description": "CMS: GET /cms/getVersionApp con cmsLogin arma home (banners/colecciones). appCh: getVersionApp indica versión mínima obligatoria de la app."
+  },
+  {
+    "title": "Home Chedraui",
+    "category": "Catálogo",
+    "description": "Pantalla principal armada por CMS (banners, vitrinas, colecciones) + getVersionApp. Negocio la configura sin release de app."
+  },
+  {
+    "title": "Intelligent Search",
+    "category": "Catálogo",
+    "description": "API VTEX de búsqueda/listados que respeta salesChannel. getPLP la usa primero; luego el BFF arma Master Simulation por producto. La app no la llama directo en flujo normal."
+  },
+  {
+    "title": "JEWEL",
+    "category": "Catálogo",
+    "description": "Familia/modal de productos con reglas propias de seller/variantes en PDP (inventario y presentación distintos al grocery)."
+  },
+  {
+    "title": "linkText",
+    "category": "Catálogo",
+    "description": "Slug/path de producto VTEX usado como query de getPDP y en deep links que terminan en /p. getLinkTextSearch respeta salesChannel."
+  },
+  {
+    "title": "Master Simulation",
+    "category": "Catálogo",
+    "description": "Simulation batch de Checkout VTEX (precios, stock, SLAs, sellerChain). Tras IS, getPLP envía todos los SKUs juntos; un 500 de batch vacía products[] aunque facets sigan OK."
+  },
+  {
+    "title": "modalType FORNITURE",
+    "category": "Catálogo",
+    "description": "Valor de modal VTEX (typo del código: FORNITURE, no Furniture). En PDP, junto con MATTRESSES, marca isDHL=true con criterio distinto al de PLP (No restringido + sin pickup-in-point)."
   },
   {
     "title": "Máximo de venta",
@@ -105,9 +295,639 @@
     "description": "Spec VTEX. En PLP/PDP, maxQuantity ≈ spec ÷ unitMultiplier. En marketplace 6* suele fijarse en 50."
   },
   {
-    "title": "Tipo de envío / No restringido",
+    "title": "PDP (Product Detail Page)",
+    "category": "Catálogo",
+    "description": "Detalle de producto: variantes, maxQuantity, teasers y promos más ricas que en PLP. Variantes ropa: inventario por SKU puede apagar talla."
+  },
+  {
+    "title": "PLP (Product List Page)",
+    "category": "Catálogo",
+    "description": "Listado/búsqueda: getPLP con query, collection, facet, page, seller y geo. Siempre enviar seller + geo coherentes. Orden: disponibles primero."
+  },
+  {
+    "title": "productId 6* (marketplace)",
+    "category": "Catálogo",
+    "description": "Productos cuyo productId empieza con 6: reglas especiales de precio (pesos, sin ÷100), availability siempre true en PLP y sellers de marketplace."
+  },
+  {
+    "title": "QUANTITY_DEFAULT",
+    "category": "Catálogo",
+    "description": "Env var: máximo de venta cuando no hay spec \"máximo de venta\". Usado en validateMaxQuantity del path checkout."
+  },
+  {
+    "title": "searchVtexFacets",
+    "category": "Catálogo",
+    "description": "Llamada separada de facets tras productos en getPLP. Si falla, facets=[] pero products siguen. Known issue: facets pueden no respetar sc."
+  },
+  {
+    "title": "Simulation",
+    "category": "Catálogo",
+    "description": "Llamada VTEX que resuelve precio, stock y logística para seller/geo. Simulation 500 puede devolver products [] con facets OK → home/colección “vacía” engañosa."
+  },
+  {
+    "title": "SKU",
+    "category": "Catálogo",
+    "description": "Identificador de la variante vendible. En evidencia de bugs siempre reportar SKU + seller + sc + geo."
+  },
+  {
+    "title": "Spec Contenido del empaque",
+    "category": "Catálogo",
+    "description": "Spec VTEX mapeada a contentPackage en respuesta PLP/PDP del BFF."
+  },
+  {
+    "title": "Spec Talla ropa",
+    "category": "Catálogo",
+    "description": "skuSpecifications de variantes de vestuario. Junto a getInventorySku define qué tallas/colores se muestran comprables."
+  },
+  {
+    "title": "addProductOrderForm",
+    "category": "Checkout",
+    "description": "POST que agrega orderItems (id SKU, quantity, seller) al orderForm. Tras updateShipping sin updateLogistic el BFF puede reset + re-add con seller nuevo (6* conserva seller original)."
+  },
+  {
+    "title": "addressType",
+    "category": "Checkout",
+    "description": "Tipo de dirección: residential (domicilio) vs search/pickup (recoger en tienda). Cambia isPickup en getSeller y la logística."
+  },
+  {
+    "title": "AllProductsOutOfStock",
+    "category": "Checkout",
+    "description": "Condición/mensaje cuando ningún ítem del carrito tiene fulfillment. Distinto de un solo unavailableItemFulfillment."
+  },
+  {
+    "title": "applyCouponOrderForm",
+    "category": "Checkout",
+    "description": "PUT applyCouponOrderForm/{orderFormId} con { text }. clearMessages + apply VTEX; couponNotFound o error HTTP → code -17. Distinto del mensaje soft en messages[] del carrito."
+  },
+  {
+    "title": "Bonificación MiChedraui (tipo mi)",
+    "category": "Checkout",
+    "description": "Promo que acredita beneficio/monedero sin ser un descuento % clásico en el precio tachado. No tratarla como promo porcentual en display."
+  },
+  {
+    "title": "Bonus (totalizer)",
+    "category": "Checkout",
+    "description": "Totalizer de bonificación MiChedraui: suma de rewardValue×quantity/100. Separado de descuentos % y de envío en dataTotalizers."
+  },
+  {
+    "title": "Checkout en 3 pasos",
+    "category": "Checkout",
+    "description": "getCheckoutOrderForm modela pasos 1/2/3 de disponibilidad y logística, totalizers y mensajes. Teléfono en step2 y validaciones de coords son sensibles."
+  },
+  {
+    "title": "clearMessagesOrderForm",
+    "category": "Checkout",
+    "description": "Limpia messages del orderForm (GET clearMessages o previo a apply cupón/delete). Evita acumular couponNotFound y límites de qty viejos en UI."
+  },
+  {
+    "title": "code -12 (ERROR_ORDER_INVALID)",
+    "category": "Checkout",
+    "description": "orderFormId no existe en VTEX. Distinto de -1 genérico; suele pedir recrear carrito / re-login de sesión comercio."
+  },
+  {
+    "title": "code -17 (ERROR_VALID_COUPON)",
+    "category": "Checkout",
+    "description": "Fallo al aplicar cupón (couponNotFound o error HTTP VTEX). La app debe mostrar \"Cupón inválido\", no tragar el code."
+  },
+  {
+    "title": "combineId",
+    "category": "Checkout",
+    "description": "Clave productId + seller en step1 para agrupar/identificar líneas del mismo producto con distintos sellers (marketplace mixto)."
+  },
+  {
+    "title": "couponNotFound",
+    "category": "Checkout",
+    "description": "Mensaje VTEX de cupón inválido. En carrito aparece soft en messages[]; en applyCouponOrderForm el BFF lo mapea a code -17 ERROR_VALID_COUPON_ORDER_FORM."
+  },
+  {
+    "title": "createOrdeForm (typo)",
+    "category": "Checkout",
+    "description": "POST real que crea/actualiza orderForm (nombre con typo Orde). GET createOrderForm es stub comentado y no debe usarse. documentType vacío → cedulaCOL."
+  },
+  {
+    "title": "createOrderForm",
+    "category": "Checkout",
+    "description": "Crea el carrito en el sales channel del modo activo. Cookies VTEX se comparten entre modos; el orderForm no."
+  },
+  {
+    "title": "Cupones",
+    "category": "Checkout",
+    "description": "getActiveCoupon / apply coupon. El BFF filtra cupones activos (no todos los de VTEX). Persistencia incorrecta entre Veloz/Chedraui es bug frecuente."
+  },
+  {
+    "title": "customData (orderForm)",
+    "category": "Checkout",
+    "description": "Bloque VTEX donde el BFF escribe deviceInfo JSON y datos de monedero (updateDeviceInfoOrderForm / updateMiMonederoOrderForm) sin alterar ítems."
+  },
+  {
+    "title": "documentType cedulaCOL",
+    "category": "Checkout",
+    "description": "Default legacy en createOrdeForm cuando documentType viene vacío (schema Colombia en cuenta MX). No implica que el usuario sea colombiano."
+  },
+  {
+    "title": "Envío gratis",
+    "category": "Checkout",
+    "description": "Umbrales y flags de free shipping configurados en BFF (constantes de entorno). La barra de progreso usa totalizers, no montos fijos en app."
+  },
+  {
+    "title": "getActiveCoupon",
+    "category": "Checkout",
+    "description": "GET de cupones marketing filtrados en CatalogServiceImpl (fechas MX, isActive, utmSource==utmCampaign, sin cluster, excluye holalerma/holaapp). No valida aplicabilidad al carrito actual."
+  },
+  {
+    "title": "getCheckoutOrderForm",
+    "category": "Checkout",
+    "description": "POST maestro de checkout: step1 (ítems), step2 (perfil), step3 (SLAs/ventanas), dataTotalizers, infoFreeShipping, messages, marketingCoupon. Requiere orderFormId + geo + seller."
+  },
+  {
+    "title": "getCheckoutOrderGroup",
+    "category": "Checkout",
+    "description": "POST post-pago que obtiene el order group id de VTEX tras confirmar la compra (puente a TYP / historial)."
+  },
+  {
+    "title": "infoFreeShipping",
+    "category": "Checkout",
+    "description": "Bloque de getCheckoutOrderForm con % de barra y steppers (tags ordenados por monto). Umbral FREE_SHIPPING_TOTAL o getMaxAmount de Master Data; miembro Club ACTIVO puede bajar umbral 1P a ~$299."
+  },
+  {
+    "title": "isPickup",
+    "category": "Checkout",
+    "description": "Flag de getSeller: false=delivery (regiones + sim 3563989), true=pickup (punto más cercano). En app suele ser true cuando addressType == search."
+  },
+  {
+    "title": "isSuperMercado / isApplyFreeShipping",
+    "category": "Checkout",
+    "description": "Flags de step1 cuando Master Data free shipping tiene productScope=category y la categoría del ítem está en scopeFacets. Solo esos disponibles alimentan la barra de envío gratis."
+  },
+  {
+    "title": "isVisible (líneas split)",
+    "category": "Checkout",
+    "description": "En step1 se agrupa por productId: solo el primer ítem del grupo queda isVisible=true; líneas duplicadas por promo quedan ocultas en UI."
+  },
+  {
+    "title": "itemMaxQuantityLimitReached",
+    "category": "Checkout",
+    "description": "Mensaje VTEX parseado por createMessageCode (regex de cantidad y nombre). UI: \"Máximo X de {producto}\". Se emite al ajustar qty en updateProductCheckoutOrderForm."
+  },
+  {
+    "title": "itemQuantityNotAvailable",
+    "category": "Checkout",
+    "description": "Mensaje VTEX de stock insuficiente; el BFF lo transforma a copy usable en app (distinct de max quantity y de unavailableItemFulfillment)."
+  },
+  {
+    "title": "marketingCoupon",
+    "category": "Checkout",
+    "description": "Campo de respuesta de getCheckoutOrderForm cuando marketingData.coupon ya está aplicado en el orderForm; la UI muestra el cupón activo."
+  },
+  {
+    "title": "matchStores (≥0.7)",
+    "category": "Checkout",
+    "description": "VtexQueryBuilder.matchStores normaliza nombres (quita mexico/mx/super/tienda/selecto) y exige similitud ≥0.7 entre addressId y seller chedrauimx*. Sin match → reset + code 100. No aplica si el carrito es 100% marketplace."
+  },
+  {
+    "title": "OrderForm",
+    "category": "Checkout",
+    "description": "Carrito VTEX (ítems, logisticsInfo, totalizers, mensajes). Post-compra no reusar el mismo orderForm sin reset."
+  },
+  {
+    "title": "Pickup / Recoger en tienda",
+    "category": "Checkout",
+    "description": "Modalidad donde el seller/SLA es de tienda. En checkout pickup y match de tienda hay reglas distintas a domicilio."
+  },
+  {
+    "title": "PLAYERA_PROMO_SKU",
+    "category": "Checkout",
+    "description": "SKU promo que getCheckoutOrderForm elimina del carrito (hasta 5 retries × 300ms). Patrón a reutilizar para no mezclar SKUs digitales de membresía en el OF de súper."
+  },
+  {
+    "title": "Promoción / teaser",
+    "category": "Checkout",
+    "description": "Reglas de descuento visibles en PLP/PDP. Deduplicar por type. Promo type \"mi\" (bonificación) no debe bajar el precio display igual que un %."
+  },
+  {
+    "title": "receiverName vs addressId",
+    "category": "Checkout",
+    "description": "Bug histórico de enriquecimiento: receiverName no debe contaminarse con addressId. Validar en direcciones domicilio vs pickup."
+  },
+  {
+    "title": "resetOrderForm",
+    "category": "Checkout",
+    "description": "Vacía ítems y limpia messages del orderForm. Se dispara en cambio de dirección (updateLogistic=false) y en mismatch de pickup antes de re-add."
+  },
+  {
+    "title": "rewardValue",
+    "category": "Checkout",
+    "description": "Bonificación MiChedraui a nivel ítem en orderForm. Si >0 se ÷100 y genera promo + totalizer Bonus (suma rewardValue×qty/100). No debe bajar el precio display como un %."
+  },
+  {
+    "title": "selectedAddresses",
+    "category": "Checkout",
+    "description": "Dirección activa en updateShippingOrderForm / checkout. De ahí salen geo, addressType e isPickup; incoherencia con CP/seller vacía PLP o dispara code 100."
+  },
+  {
+    "title": "Shipping totalizer residential",
+    "category": "Checkout",
+    "description": "En fase totalizers, montos ÷100 excepto Shipping: si addressType ≠ residential se fuerza Shipping=0 (pickup no muestra costo de envío a domicilio)."
+  },
+  {
+    "title": "SLA / deliveryWindow",
+    "category": "Checkout",
+    "description": "Ventana o promesa de entrega. Preservar el slot al recrear orderForm cuando aplique. Veloz tiene ventanas propias."
+  },
+  {
+    "title": "step1 / step2 / step3",
+    "category": "Checkout",
+    "description": "Partes de getCheckoutOrderForm: step1 ítems/availability/promos, step2 perfil (phone vacío si null/52/+52), step3 logisticsInfo filtrado por addressType y ventanas DatesUtil."
+  },
+  {
+    "title": "Totalizers",
+    "category": "Checkout",
+    "description": "Desglose del carrito: subtotal, envío, descuentos, bonificaciones. No hardcodear montos de envío gratis: leer respuesta de checkout."
+  },
+  {
+    "title": "totalMaxQuantityPerSale (marketplace)",
+    "category": "Checkout",
+    "description": "Si seller no contiene \"chedraui\", checkout fija totalMaxQuantityPerSale=1000. Distinto del maxQuantity 50 de PDP 6*."
+  },
+  {
+    "title": "TYP (Thank You Page)",
+    "category": "Checkout",
+    "description": "Pantalla post-pago. Debe distinguir éxito parcial vs total. El sales channel queda en el historial del pedido (Janis/VTEX)."
+  },
+  {
+    "title": "unavailableItemFulfillment",
+    "category": "Checkout",
+    "description": "Mensaje VTEX: ítem no se puede cumplir en esa zona/seller. Debe mostrarse en UI. Puede hacer isVelozAvailable=false aunque haya seller en zona."
+  },
+  {
+    "title": "updateLogistic",
+    "category": "Checkout",
+    "description": "Cuando es true, setea SLA/ventana (deliveryWindow) sobre logisticsInfo. Veloz usa costos/ventanas distintos al grocery."
+  },
+  {
+    "title": "updateProductCheckoutOrderForm",
+    "category": "Checkout",
+    "description": "Valida máximo de venta (spec ÷ unitMultiplier o QUANTITY_DEFAULT) antes del PATCH; si excede, ajusta qty y emite itemMaxQuantityLimitReached."
+  },
+  {
+    "title": "updateProductOrderForm (split)",
+    "category": "Checkout",
+    "description": "Si VTEX duplicó líneas del mismo SKU por promo NxM/combo (≥2), limpia quantity=0 en todos los índices y re-agrega una sola línea. Evita huérfanos al cambiar cantidad."
+  },
+  {
+    "title": "updateShippingOrderForm",
+    "category": "Checkout",
+    "description": "Actualiza dirección/shipping del carrito. Puede responder HTTP 200 con error en body. Sin updateLogistic el BFF puede reset + re-add con seller nuevo."
+  },
+  {
+    "title": "utmSource holalerma / holaapp",
+    "category": "Checkout",
+    "description": "Cupones con esos utmSource se excluyen de getActiveCoupon aunque estén activos y en fecha. Solo se listan cupones marketing con utmSource==utmCampaign y sin clusterExpressions."
+  },
+  {
+    "title": "Auth0",
+    "category": "Cuenta",
+    "description": "Identidad del usuario (login, OTP, social, refresh). La sesión de comercio en VTEX es aparte: se obtiene tras intercambiar el token Auth0."
+  },
+  {
+    "title": "auth0-errors.json",
+    "category": "Cuenta",
+    "description": "Catálogo estático en el BFF que mapea errores Auth0 a mensajes/acciones (quién resuelve, checklist). Separado de ResponseOperators de comercio."
+  },
+  {
+    "title": "AUTH0_SUBSANACION_ENABLED",
+    "category": "Cuenta",
+    "description": "Flag de subsanación/corrección de flujos Auth0 en el BFF. Revisar junto a allowlist IP del tenant y auth0-errors.json ante incidentes de login."
+  },
+  {
+    "title": "auth0RefreshToken / auth0Social",
+    "category": "Cuenta",
+    "description": "Renovación de tokens y login social (Google/Facebook/Apple). Fallos de social en Veloz han aparecido como bugs Azure (botones a página de error)."
+  },
+  {
+    "title": "auth0SendCode / auth0VerifyCode",
+    "category": "Cuenta",
+    "description": "Functions BFF de OTP email/SMS Auth0. Errores mapeados en auth0-errors.json; retries 429 vía AUTH0_ERROR_HTTP_429_RETRIES en AbstractService."
+  },
+  {
+    "title": "changeMembershipPlan",
+    "category": "Cuenta",
+    "description": "POST BFF/IO change-plan (YEARLY|MONTHLY). Cambio diferido vía pendingPlan + nextChargeDate. Errores IO: UNSUPPORTED_CURRENT_PLAN, INVALID_PURCHASE_DAY, NO_ACTIVE_SUBSCRIPTION."
+  },
+  {
+    "title": "Club Chedraui / Membresías",
+    "category": "Cuenta",
+    "description": "Planes de membresía vía BFF Mi Cuenta / servicios IO. SKUs digitales y umbrales 1P afectan beneficios en checkout."
+  },
+  {
+    "title": "code -5 (INCORRECT_TOKEN)",
+    "category": "Cuenta",
+    "description": "Cookie VTEX ausente/inválida o id de key ≠ vtex-cookie-token. Acción app: logout → login. Distinto de 401 APIM por backendLogin."
+  },
+  {
+    "title": "code 103 / 104 (dirección duplicada)",
+    "category": "Cuenta",
+    "description": "103 al crear si existe mismo alias o calle+número; 104 al actualizar con alias duplicado. Estrategia delete+recreate preserva alias/name originales."
+  },
+  {
+    "title": "code 106 (ERROR_ADDRESS_GEOCOORDINATES)",
+    "category": "Cuenta",
+    "description": "createAddressUser rechaza coords con !esValido (incl. Polanco placeholder). No confundir con limpieza silenciosa de shipping en checkout."
+  },
+  {
+    "title": "consultaMonedero",
+    "category": "Cuenta",
+    "description": "POST APIM /v1/vtex/consultaMonedero con header vtexLogin (gateway distinto al BFF Richard). Body client.id/email; 401 a veces se ignora a propósito en Android."
+  },
+  {
+    "title": "customerId (RNS)",
+    "category": "Cuenta",
+    "description": "UUID de suscripción RNS usado en /_v/membership/{rnsId}. No confundir con id de Master Data CL ni con email Auth0."
+  },
+  {
+    "title": "getAgeConfirmation / saveAgeConfirmation",
+    "category": "Cuenta",
+    "description": "Flujo appCh de mayoría de edad (email, ofLegalAge). Independiente del BFF de catálogo/checkout."
+  },
+  {
+    "title": "getAuthToken",
+    "category": "Cuenta",
+    "description": "Endpoint que convierte identidad Auth0 en cookies/sesión VTEX usadas por el BFF y checkout."
+  },
+  {
+    "title": "getDetailRefundOrder / updateRefundOrder",
+    "category": "Cuenta",
+    "description": "Postventa: detalle (error→108) y applyRefund false=preview / true=POST refund (error→109; orden inexistente→102)."
+  },
+  {
+    "title": "getDirecctionsByEmail (typo)",
+    "category": "Cuenta",
+    "description": "Function con typo Direcctions: lista direcciones VTEX, borra las sin coords válidas, deduplica por number|street y normaliza alias random de 10 chars."
+  },
+  {
+    "title": "getLastPurchase / getLastPurchaseVtex",
+    "category": "Cuenta",
+    "description": "Recompra: Janis (ligero) vs VTEX (enriquece ítems con PDP async; si sellerDefaultId==\"1\" lo reemplaza por seller del request)."
+  },
+  {
+    "title": "getListOrders / getDetailOrder",
+    "category": "Cuenta",
+    "description": "Historial y detalle: merge VTEX OMS + Janis, fechas America/Mexico_City, agrupación de líneas por productId. Fallback a solo VTEX si Janis cae."
+  },
+  {
+    "title": "getMembership",
+    "category": "Cuenta",
+    "description": "Function propuesta/contrato BFF Mi Cuenta: email → RNS customerId → IO /_v/membership. Devuelve status NONE/ACTIVE/PENDING_CHANGE/CANCELLED/EXPIRED, plan, payments[], CTAs."
+  },
+  {
+    "title": "GraphQL ShoppingList",
+    "category": "Cuenta",
+    "description": "Wishlist/listas vía ValidationGrapQLServiceImpl. Productos se enriquecen con generateProductsPLP; addProductShoppingList rechaza duplicar el mismo productId."
+  },
+  {
+    "title": "HeaderValidatorService",
+    "category": "Cuenta",
+    "description": "Valida vtex-cookie-key/token: authStatus Success e id==token. Fallo → -5 sin invocar handler. Exclusiones vía COOKIE_API_EXCLUDE."
+  },
+  {
+    "title": "initRestoreDocumentsbyEmail",
+    "category": "Cuenta",
+    "description": "Post-login: intenta crear documento CL en Master Data; si 4xx busca por email y recupera existente. Asegura entidad cliente VTEX tras Auth0."
+  },
+  {
+    "title": "isNewUser",
+    "category": "Cuenta",
+    "description": "Endpoint: data true si getUserOrders no tiene órdenes previas. Usado para promos/onboarding de usuario nuevo, no para \"cuenta Auth0 recién creada\"."
+  },
+  {
+    "title": "isRandomAlias",
+    "category": "Cuenta",
+    "description": "Regex ^(?![a-z]{5,}$)[A-Za-z0-9]{10}$: detecta alias basura de 10 chars que VTEX genera; getDirecctions lo reemplaza por addressAlias legible."
+  },
+  {
+    "title": "Janis",
+    "category": "Cuenta",
+    "description": "Sistema de fulfillment/tracking de pedidos. Los estados Janis no siempre mapean 1:1 al copy de la UI; el salesChannel del pedido indica si fue Veloz u otro canal."
+  },
+  {
+    "title": "Master Data AD",
+    "category": "Cuenta",
+    "description": "Entidad de direcciones en VTEX. createAddressUser actualiza con delete+recreate porque AD no permite patch limpio de geo; getDirecctionsByEmail limpia y deduplica."
+  },
+  {
+    "title": "Master Data CL",
+    "category": "Cuenta",
+    "description": "Entidad de cliente en VTEX Master Data. initRestoreDocumentsbyEmail crea/recupera el documento CL post-Auth0; getClientProfile/updateClientProfile hacen proxy con cookie válida."
+  },
+  {
+    "title": "Monedero",
+    "category": "Cuenta",
+    "description": "Saldo / giftcard del cliente. consultaMonedero usa un gateway distinto al pipeline de getPLP; un 401 de monedero a veces se ignora a propósito en Android."
+  },
+  {
+    "title": "Solr / getIdSugar",
+    "category": "Cuenta",
+    "description": "Índice Solr de monederos Sugar CRM. getIdSugar resuelve idSugar (ej. CONTACTS_70426668) por email; no consulta saldo. Errores RESPONSE_QUERIES: -1 no encontrado, -2 multiaccount."
+  },
+  {
+    "title": "vtex-cookie-key / vtex-cookie-token",
+    "category": "Cuenta",
+    "description": "Headers de sesión comercio: key ≈ JWT VTEX; token ≈ userId. getAuthToken intercambia Auth0 → sesión VTEX. Cookie inválida (no eyJ…) no debe enviarse."
+  },
+  {
+    "title": "Wishlist / Listas",
+    "category": "Cuenta",
+    "description": "Favoritos y listas de compras. Al resolver precios usan seller/geo actuales. Endpoints de perfil validan cookie → HTTP 401 real si falla."
+  },
+  {
+    "title": "ARTICULOS NO DISPONIBLES PARA ENVIO",
+    "category": "Logística",
+    "description": "Bucket especial de step3 para productos de step1 que no entraron en ningún SLA. Post-proceso: availability=withoutStock y totalMaxQuantityPerSale=0."
+  },
+  {
+    "title": "COST_WINDOW / COST_MARKET",
+    "category": "Logística",
+    "description": "Labels de costo desde env SHIPING_COST_WINDOW (ventanas horarias residential) y SHIPING_COST_MARKET (SLA marketplace). Pickup muestra Gratis en ventanas."
+  },
+  {
+    "title": "deliveryChannel",
+    "category": "Logística",
+    "description": "Filtro de SLAs: residential → delivery; pickup/search → pickup-in-point. updateLogistic setea selectedDeliveryChannel + selectedSla + deliveryWindow."
+  },
+  {
+    "title": "getBestSlas",
+    "category": "Logística",
+    "description": "Por ítem elige SLA: menor price > 0; si ninguno tiene precio, menor shippingEstimate (días). Luego se agrupan productos que comparten slaId."
+  },
+  {
+    "title": "mapVtexStatus",
+    "category": "Logística",
+    "description": "Fallback de estados cuando Janis no responde: payment-pending→En proceso, invoice→Revisando pago, invoiced→Pago Facturado, canceled*→Cancelado."
+  },
+  {
+    "title": "OMS pvt/orders",
+    "category": "Logística",
+    "description": "API privada VTEX de órdenes usada por el BFF para list/detail. Se enriquece con Janis; gift cards aparecen como campos DTO, el saldo se consulta en otro gateway."
+  },
+  {
+    "title": "Pickup regions / getPickupStore",
+    "category": "Logística",
+    "description": "APIs VTEX de puntos y regiones por geo. getSeller delivery cruza ambos; sin items → error pickup. Base del algoritmo de sellers regionales."
+  },
+  {
+    "title": "pickupPoint.id",
+    "category": "Logística",
+    "description": "Identificador de punto de recolección (ej. chedrauimx0805_PP0805). En pickup, getSeller responde el id del punto más cercano; en catálogo SQL se genera chedrauimx{store}_PP{store}."
+  },
+  {
+    "title": "sellerChain whitelabel",
+    "category": "Logística",
+    "description": "Cadena de sellers en simulation (ej. [\"1\", \"chedrauimx0098\"]). Mezclar available/withoutStock/cannotBeDelivered en batch puede disparar el known issue 500 Sequence contains no matching element."
+  },
+  {
+    "title": "statusJanis",
+    "category": "Logística",
+    "description": "Estado operativo enriquecido en getListOrders/getDetailOrder (merge VTEX + Janis). Mapeo: picking→En preparación, indelivery→En transito, delivered→Entregado, etc. SIN ESTATUS + VTEX invoiced → Entregado."
+  },
+  {
+    "title": "VTEX_PICKUP_USE",
+    "category": "Logística",
+    "description": "Flag env que habilita/controla uso de pickup en el BFF. Relacionado con getPickupStore/regions y addressType search."
+  },
+  {
+    "title": "Analytics",
+    "category": "Móvil",
+    "description": "Instrumentación de eventos de producto (Home, Veloz switch, checkout). Salvador/iOS y Android mantienen paridad de tracking."
+  },
+  {
+    "title": "APK / AAB",
+    "category": "Móvil",
+    "description": "Paquete Android (APK) o Android App Bundle (AAB) para Play Store / distribución interna."
+  },
+  {
+    "title": "Associated Domains (applinks)",
+    "category": "Móvil",
+    "description": "Entitlements iOS: applinks www.chedraui.com.mx, app.chedraui.com.mx, app-deeplink.web.app y firebaseapp.com (puente Firebase). Hosts no permitidos se ignoran en silencio."
+  },
+  {
+    "title": "chedraui:// (custom scheme)",
+    "category": "Móvil",
+    "description": "URL scheme registrado: chedraui://callback (Auth0 OAuth) y chedraui://thankyou/{orderId}. Distinto de HTTPS applinks de www/app.chedraui.com.mx."
+  },
+  {
+    "title": "CI/CD",
+    "category": "Móvil",
+    "description": "Integración y despliegue continuos: build, tests y release automatizados (pipelines Azure/GitHub)."
+  },
+  {
+    "title": "Crashlytics",
+    "category": "Móvil",
+    "description": "Monitoreo de crashes. Útil para correlacionar incidentes post-release con build y dispositivo."
+  },
+  {
+    "title": "DeepLinkManager",
+    "category": "Móvil",
+    "description": "Router iOS (DeepLinkManager.swift) de Universal Links y scheme chedraui://. Orden: /search → /p → /thankyou → gatewaycallback. Paths no matcheados no navegan."
+  },
+  {
+    "title": "FirebaseConfig (push BFF)",
+    "category": "Móvil",
+    "description": "Config del BFF para push notifications (service account). Complementa FCM/APNs del cliente y NotificationManager iOS."
+  },
+  {
+    "title": "Hotfix",
+    "category": "Móvil",
+    "description": "Cambio urgente en producción para corregir un incidente crítico (app store o BFF)."
+  },
+  {
+    "title": "HT manejo de excepciones 401",
+    "category": "Móvil",
+    "description": "Historia técnica iOS/Android: ante 401 de sesión enviar a login; no pantallas blancas en direcciones, pedidos ni mis datos (CA-10 y paridad Android)."
+  },
+  {
+    "title": "IPA",
+    "category": "Móvil",
+    "description": "Paquete de app iOS para instalación/distribución (Ad Hoc, enterprise o App Store)."
+  },
+  {
+    "title": "NotificationManager (push deep link)",
+    "category": "Móvil",
+    "description": "Pipeline C de deep links: FCM/APNs. Si hay orderId válido abre detalle de pedido; tap sin login → LoginRouter. No comparte código 1:1 con DeepLinkManager ni con redirect CMS."
+  },
+  {
+    "title": "promotion_id / promotion_name",
+    "category": "Móvil",
+    "description": "Parámetros de Analytics esperados en eventos SuperVeloz. Faltantes son riesgo recurrente de paridad Salvador/iOS vs Android."
+  },
+  {
+    "title": "Pull Request (PR)",
+    "category": "Móvil",
+    "description": "Solicitud para fusionar código tras code review. En AppNativa suele ir ligada a HU/bug de Azure."
+  },
+  {
+    "title": "Push Notifications",
+    "category": "Móvil",
+    "description": "Mensajes remotos al dispositivo (promos, pedido, reenganche). Coordinar con backends de mensajería y permisos del SO."
+  },
+  {
+    "title": "TemporaryFailure (refresh Android)",
+    "category": "Móvil",
+    "description": "Fallo temporal del refresh Auth0 en Android. Known: el interceptor no debería borrar sesión global (a diferencia de varios 401 del switch Veloz en iOS que sí hacen logout)."
+  },
+  {
+    "title": "TestFlight (TF)",
+    "category": "Móvil",
+    "description": "Distribución de builds iOS pre-App Store. Indicar siempre versión/build en evidencia."
+  },
+  {
+    "title": "toSearchPath()",
+    "category": "Móvil",
+    "description": "Extensión iOS que normaliza paths/collections de deep links y redirects CMS hacia PLP (withCollection/withTerm/searchPath)."
+  },
+  {
+    "title": "Xcode / Android Studio",
+    "category": "Móvil",
+    "description": "IDEs oficiales iOS y Android del equipo AppNativa para builds, debugging y firma."
+  },
+  {
+    "title": "Canales VTEX PROD (1/3/4)",
     "category": "Negocio",
-    "description": "Spec que dispara lógica DHL/marketplace. Con \"No restringido\" el BFF puede forzar seller \"1\" en simulation y marcar isDHL según SLAs."
+    "description": "Mapa documentado: sc=1 WEB, sc=2 no existe, sc=3 APP, sc=4 Supercitos/Superveloz. En QA: sc=1 WEB/default app, sc=3 Superveloz. sc inexistente hace fallar VTEX."
+  },
+  {
+    "title": "CHANNEL_SCOPE_ALL / CHANNEL_SCOPE_APP",
+    "category": "Negocio",
+    "description": "Alcance de steppers de envío dinámico en Master Data. getShippingCost solo aplica si channelScope ∈ {all, app}."
+  },
+  {
+    "title": "chedrauimx0232 / chedrauimxqa0232",
+    "category": "Negocio",
+    "description": "Tienda genérica/fallback delivery. Si getSeller encuentra ≥2 regiones, se excluyen 0232 (PROD) y qa0232 (QA) para que no ganen por defecto sobre cobertura real."
+  },
+  {
+    "title": "CRM",
+    "category": "Negocio",
+    "description": "Gestión de relación con el cliente (datos, campañas, servicio). En omnicanal se cruza con cuenta, monedero y postventa."
+  },
+  {
+    "title": "FREE_SHIPPING_TOTAL",
+    "category": "Negocio",
+    "description": "Env var del umbral en pesos de la barra de envío gratis (~$1,500 típico). Parametrizable; membresía vigente puede override a $299 solo sobre subtotal 1P."
+  },
+  {
+    "title": "generateBonificationPromo (PLP off)",
+    "category": "Negocio",
+    "description": "En PromotionUtils la bonificación por simulation está comentada en PLP y activa en PDP/checkout. Por eso PLP no muestra type mi igual que PDP."
+  },
+  {
+    "title": "geoCoordinates",
+    "category": "Negocio",
+    "description": "Coordenadas de entrega en la app: [lng, lat]. Invertirlas vacía el PLP o resuelve mal el seller. Deben ser coherentes con CP y addressType."
+  },
+  {
+    "title": "getSeller",
+    "category": "Negocio",
+    "description": "Endpoint BFF que, con geoCoordinates y tipo de dirección, determina el seller de fulfillment. Sin seller correcto → sin stock, precios raros o PLP vacío."
   },
   {
     "title": "isDHL",
@@ -120,294 +940,9 @@
     "description": "True cuando el seller default no es \"1\" (producto no Chedraui 1P). Si sellerDefault.sellerId == \"1\", isMarketPlace = false."
   },
   {
-    "title": "Simulation",
-    "category": "Catálogo",
-    "description": "Llamada VTEX que resuelve precio, stock y logística para seller/geo. Simulation 500 puede devolver products [] con facets OK → home/colección “vacía” engañosa."
-  },
-  {
-    "title": "available / withoutStock / cannotBeDelivered",
-    "category": "Catálogo",
-    "description": "Estados de availability de simulation. PLP filtra price 0/nulos. getPDP puede devolver code -1 genérico si simulation falla (known issue)."
-  },
-  {
-    "title": "PLP (Product List Page)",
-    "category": "Catálogo",
-    "description": "Listado/búsqueda: getPLP con query, collection, facet, page, seller y geo. Siempre enviar seller + geo coherentes. Orden: disponibles primero."
-  },
-  {
-    "title": "PDP (Product Detail Page)",
-    "category": "Catálogo",
-    "description": "Detalle de producto: variantes, maxQuantity, teasers y promos más ricas que en PLP. Variantes ropa: inventario por SKU puede apagar talla."
-  },
-  {
-    "title": "Facets",
-    "category": "Catálogo",
-    "description": "Filtros de facetas en PLP. Known issue: facets pueden no respetar el sales channel (sc)."
-  },
-  {
-    "title": "Colección",
-    "category": "Catálogo",
-    "description": "Conjunto de productos curado (no es una query libre). IDs viven en CMS/sheets. Colección vacía en PROD es hallazgo de contenido, no solo de app."
-  },
-  {
-    "title": "Home Chedraui",
-    "category": "Catálogo",
-    "description": "Pantalla principal armada por CMS (banners, vitrinas, colecciones) + getVersionApp. Negocio la configura sin release de app."
-  },
-  {
-    "title": "Category tree",
-    "category": "Catálogo",
-    "description": "Árbol de departamentos/categorías desde VTEX. Deep links deben mapear a query o colección válida; paridad iOS/Android en labels y rutas."
-  },
-  {
-    "title": "Super Veloz",
-    "category": "Veloz",
-    "description": "Experiencia de delivery rápido con catálogo, logística y sales channel propios. Es un modo/sesión separado, no solo un filtro de home."
-  },
-  {
-    "title": "isVelozAvailable",
-    "category": "Veloz",
-    "description": "El BFF lo calcula en updateShippingOrderForm solo si sc ≠ canal default: getSeller + simulation del SKU pivote con availability == available."
-  },
-  {
-    "title": "FAST_PIVOT_SKU / SKU pivote",
-    "category": "Veloz",
-    "description": "SKU usado para probar cobertura Veloz (simulation del pivote). Sin cobertura → UI “no disponible”, no un catálogo mentiroso."
-  },
-  {
-    "title": "OrderForm dual",
-    "category": "Veloz",
-    "description": "Hay orderFormId Chedraui y orderFormId Veloz independientes. Crear OF con el sc del modo activo; no cruzar slots ni reusar el mismo id en ambos."
-  },
-  {
-    "title": "OrderForm",
-    "category": "Checkout",
-    "description": "Carrito VTEX (ítems, logisticsInfo, totalizers, mensajes). Post-compra no reusar el mismo orderForm sin reset."
-  },
-  {
-    "title": "createOrderForm",
-    "category": "Checkout",
-    "description": "Crea el carrito en el sales channel del modo activo. Cookies VTEX se comparten entre modos; el orderForm no."
-  },
-  {
-    "title": "Switch Veloz ↔ Chedraui",
-    "category": "Veloz",
-    "description": "Cambio de modo que dispara updateShippingOrderForm. Un HTTP 401 del switch no siempre es Auth0 muerto; iOS puede hacer logout sin refresh tras varios 401."
-  },
-  {
-    "title": "ScHeaderInterceptor",
-    "category": "Veloz",
-    "description": "Interceptor Android que agrega header sc solo si la sesión Veloz está activa. En Chedraui normal no debe forzar sc."
-  },
-  {
-    "title": "Localizador (Veloz)",
-    "category": "Veloz",
-    "description": "En Veloz el localizador es flujo de domicilio (no el pickup de Chedraui). Debe abrir direcciones; “tap que no hace nada” es bug recurrente de paridad."
-  },
-  {
-    "title": "Feature flag",
-    "category": "Veloz",
-    "description": "Interruptor remoto de features (p. ej. Veloz). Flag apagado ≠ bug de red. Estados típicos: cargando / sin cobertura / con cobertura."
-  },
-  {
-    "title": "addressType",
-    "category": "Checkout",
-    "description": "Tipo de dirección: residential (domicilio) vs search/pickup (recoger en tienda). Cambia isPickup en getSeller y la logística."
-  },
-  {
-    "title": "Pickup / Recoger en tienda",
-    "category": "Checkout",
-    "description": "Modalidad donde el seller/SLA es de tienda. En checkout pickup y match de tienda hay reglas distintas a domicilio."
-  },
-  {
-    "title": "updateShippingOrderForm",
-    "category": "Checkout",
-    "description": "Actualiza dirección/shipping del carrito. Puede responder HTTP 200 con error en body. Sin updateLogistic el BFF puede reset + re-add con seller nuevo."
-  },
-  {
-    "title": "updateLogistic",
-    "category": "Checkout",
-    "description": "Cuando es true, setea SLA/ventana (deliveryWindow) sobre logisticsInfo. Veloz usa costos/ventanas distintos al grocery."
-  },
-  {
-    "title": "SLA / deliveryWindow",
-    "category": "Checkout",
-    "description": "Ventana o promesa de entrega. Preservar el slot al recrear orderForm cuando aplique. Veloz tiene ventanas propias."
-  },
-  {
-    "title": "Totalizers",
-    "category": "Checkout",
-    "description": "Desglose del carrito: subtotal, envío, descuentos, bonificaciones. No hardcodear montos de envío gratis: leer respuesta de checkout."
-  },
-  {
-    "title": "unavailableItemFulfillment",
-    "category": "Checkout",
-    "description": "Mensaje VTEX: ítem no se puede cumplir en esa zona/seller. Debe mostrarse en UI. Puede hacer isVelozAvailable=false aunque haya seller en zona."
-  },
-  {
-    "title": "Envío gratis",
-    "category": "Checkout",
-    "description": "Umbrales y flags de free shipping configurados en BFF (constantes de entorno). La barra de progreso usa totalizers, no montos fijos en app."
-  },
-  {
-    "title": "Cupones",
-    "category": "Checkout",
-    "description": "getActiveCoupon / apply coupon. El BFF filtra cupones activos (no todos los de VTEX). Persistencia incorrecta entre Veloz/Chedraui es bug frecuente."
-  },
-  {
-    "title": "Promoción / teaser",
-    "category": "Checkout",
-    "description": "Reglas de descuento visibles en PLP/PDP. Deduplicar por type. Promo type \"mi\" (bonificación) no debe bajar el precio display igual que un %."
-  },
-  {
-    "title": "Bonificación MiChedraui (tipo mi)",
-    "category": "Checkout",
-    "description": "Promo que acredita beneficio/monedero sin ser un descuento % clásico en el precio tachado. No tratarla como promo porcentual en display."
-  },
-  {
-    "title": "TYP (Thank You Page)",
-    "category": "Checkout",
-    "description": "Pantalla post-pago. Debe distinguir éxito parcial vs total. El sales channel queda en el historial del pedido (Janis/VTEX)."
-  },
-  {
-    "title": "Checkout en 3 pasos",
-    "category": "Checkout",
-    "description": "getCheckoutOrderForm modela pasos 1/2/3 de disponibilidad y logística, totalizers y mensajes. Teléfono en step2 y validaciones de coords son sensibles."
-  },
-  {
-    "title": "vtex-cookie-key / vtex-cookie-token",
-    "category": "Cuenta",
-    "description": "Headers de sesión comercio: key ≈ JWT VTEX; token ≈ userId. getAuthToken intercambia Auth0 → sesión VTEX. Cookie inválida (no eyJ…) no debe enviarse."
-  },
-  {
-    "title": "getAuthToken",
-    "category": "Cuenta",
-    "description": "Endpoint que convierte identidad Auth0 en cookies/sesión VTEX usadas por el BFF y checkout."
-  },
-  {
-    "title": "Wishlist / Listas",
-    "category": "Cuenta",
-    "description": "Favoritos y listas de compras. Al resolver precios usan seller/geo actuales. Endpoints de perfil validan cookie → HTTP 401 real si falla."
-  },
-  {
-    "title": "Club Chedraui / Membresías",
-    "category": "Cuenta",
-    "description": "Planes de membresía vía BFF Mi Cuenta / servicios IO. SKUs digitales y umbrales 1P afectan beneficios en checkout."
-  },
-  {
-    "title": "CSAT",
-    "category": "Calidad",
-    "description": "Customer Satisfaction Score post-pedido (encuesta de satisfacción). En Veloz queda ligada a orderId + canal VELOZ_APP. No confundir con CES."
-  },
-  {
-    "title": "CES",
-    "category": "Calidad",
-    "description": "Customer Effort Score: mide el esfuerzo del cliente. En evidencia UAT CSAT y CES no son intercambiables."
-  },
-  {
-    "title": "GenericResponse { code, message, data }",
-    "category": "Técnica",
-    "description": "Envelope del BFF. code de negocio ≠ status HTTP. updateShippingOrderForm puede ser HTTP 200 con code de error en body."
-  },
-  {
-    "title": "code -1",
-    "category": "Técnica",
-    "description": "Error genérico del BFF (p. ej. PDP cuando simulation falla). Insuficiente para debug: revisar logs/VTEX y known issues."
-  },
-  {
-    "title": "RequestContextHolder",
-    "category": "Técnica",
-    "description": "Contexto por request en el BFF: carga sales channel (sc) y datos de sesión usados por ValidationVtexServiceImpl y endpoints."
-  },
-  {
-    "title": "Empathy",
-    "category": "Catálogo",
-    "description": "Motor/servicio de búsqueda/relevancia usado en el ecosistema de catálogo (junto a VTEX). Coordinar con BFF pricing/seller."
-  },
-  {
-    "title": "Weni (carrito abandonado)",
-    "category": "Técnica",
-    "description": "Integración outbound (WhatsApp) para recuperar carritos abandonados. No confundir con el carrito activo de la sesión en app."
-  },
-  {
-    "title": "Deeplink / Universal Link",
-    "category": "Técnica",
-    "description": "URLs que abren Home, PLP o PDP. Dominio raíz puede forzar Home. PDP usa path de producto VTEX; homologar iOS/Android y matriz de marketing."
-  },
-  {
-    "title": "RFQ (Ready for QA)",
-    "category": "Proceso",
-    "description": "Estado Azure: listo para QA. No mandar a RFQ sin evidencia reproducible (ambiente, build, SKU, seller, sc, geo)."
-  },
-  {
-    "title": "Reopen",
-    "category": "Proceso",
-    "description": "Bug/HU reabierto tras fallar QA o UAT. Suele indicar evidencia incompleta o regresión."
-  },
-  {
-    "title": "UAT",
-    "category": "Proceso",
-    "description": "User Acceptance Testing. En Veloz: guardar orderId, versión de app y canal. Colecciones vacías en PROD son hallazgo de contenido."
-  },
-  {
-    "title": "Ambientes DEV · QA · PROD",
-    "category": "Proceso",
-    "description": "Hosts APIM, Auth0 y BFF distintos. BFF QA puede apuntar a VTEX PROD: no asumas QA = sandbox de catálogo. Nunca mezclar credenciales PROD en exploratorio."
-  },
-  {
-    "title": "Known issue",
-    "category": "Proceso",
-    "description": "Bug documentado (simulation 500, PDP -1, facets/sc, 401 APIM). Revisar vault antes de abrir ticket duplicado."
-  },
-  {
-    "title": "Evidencia de bug",
-    "category": "Proceso",
-    "description": "Mínimo: ambiente + build + SO + sc + seller + geo + SKU + esperado/actual + captura. No reportar PROD si se probó TestFlight/QA sin decirlo."
-  },
-  {
-    "title": "TestFlight (TF)",
-    "category": "Móvil",
-    "description": "Distribución de builds iOS pre-App Store. Indicar siempre versión/build en evidencia."
-  },
-  {
-    "title": "APK / AAB",
-    "category": "Móvil",
-    "description": "Paquete Android (APK) o Android App Bundle (AAB) para Play Store / distribución interna."
-  },
-  {
-    "title": "IPA",
-    "category": "Móvil",
-    "description": "Paquete de app iOS para instalación/distribución (Ad Hoc, enterprise o App Store)."
-  },
-  {
-    "title": "Pull Request (PR)",
-    "category": "Móvil",
-    "description": "Solicitud para fusionar código tras code review. En AppNativa suele ir ligada a HU/bug de Azure."
-  },
-  {
-    "title": "CI/CD",
-    "category": "Móvil",
-    "description": "Integración y despliegue continuos: build, tests y release automatizados (pipelines Azure/GitHub)."
-  },
-  {
-    "title": "Hotfix",
-    "category": "Móvil",
-    "description": "Cambio urgente en producción para corregir un incidente crítico (app store o BFF)."
-  },
-  {
-    "title": "Feature parity",
-    "category": "Proceso",
-    "description": "Misma regla de negocio y UX en iOS y Android (localizador Veloz, headers sc, deep links). Muchos bugs son de paridad."
-  },
-  {
-    "title": "Placeholder Polanco",
+    "title": "listPrice / sellingPrice",
     "category": "Negocio",
-    "description": "Ubicación/datos de prueba frecuentes en QA. No confundir con cobertura real del usuario; coords inválidas rompen seller/PLP."
-  },
-  {
-    "title": "JEWEL",
-    "category": "Catálogo",
-    "description": "Familia/modal de productos con reglas propias de seller/variantes en PDP (inventario y presentación distintos al grocery)."
+    "description": "listPrice = precio tachado (si list==price en VTEX, el BFF suele devolver listPrice=0). sellingPrice = precio de venta; en pesables PLP a menudo muestra precio por kg."
   },
   {
     "title": "MATTRESSES / FURNITURE",
@@ -415,19 +950,159 @@
     "description": "Modales de catálogo con logística DHL/simulation especial. No aplicar las mismas reglas de grocery ni de 6* a ciegas."
   },
   {
+    "title": "pendingPlan",
+    "category": "Negocio",
+    "description": "Plan futuro agendado al cambiar membresía. IO ACTIVA + pendingPlan ≠ null → status PENDING_CHANGE en contrato BFF hasta effectiveDate/nextChargeDate."
+  },
+  {
+    "title": "periodType 30 / 365",
+    "category": "Negocio",
+    "description": "Periodicidad IO de Club: 30=MONTHLY, 365=YEARLY. Plan diario (SKU 1000010020) no es hub Club y change-plan responde UNSUPPORTED_CURRENT_PLAN."
+  },
+  {
+    "title": "Pesables",
+    "category": "Negocio",
+    "description": "Productos por peso (fruta/verdura). No confundir el precio por kg del PLP con el total de la porción cobrada en carrito."
+  },
+  {
+    "title": "Placeholder Polanco",
+    "category": "Negocio",
+    "description": "Ubicación/datos de prueba frecuentes en QA. No confundir con cobertura real del usuario; coords inválidas rompen seller/PLP."
+  },
+  {
+    "title": "Precios ÷100",
+    "category": "Negocio",
+    "description": "En grocery, price / listPrice / sellingPrice de simulation vienen en centavos VTEX y el BFF los divide entre 100 a pesos. SKU 6* ya vienen en pesos."
+  },
+  {
     "title": "Preventa",
     "category": "Negocio",
     "description": "Producto o campaña vendida antes de disponibilidad física completa; validar reglas de stock, mensajes y fechas en PLP/PDP/checkout."
   },
   {
-    "title": "AllProductsOutOfStock",
-    "category": "Checkout",
-    "description": "Condición/mensaje cuando ningún ítem del carrito tiene fulfillment. Distinto de un solo unavailableItemFulfillment."
+    "title": "PRODUCT_SCOPE_CATEGORY",
+    "category": "Negocio",
+    "description": "Master Data free shipping por categoría (scopeFacets CSV). PRODUCT_SCOPE_COLLECTION está documentado como TODO no implementado."
   },
   {
-    "title": "CRM",
+    "title": "promo type Combo / NxM",
     "category": "Negocio",
-    "description": "Gestión de relación con el cliente (datos, campañas, servicio). En omnicanal se cruza con cuenta, monedero y postventa."
+    "description": "Clasificación GeneralUtils.promoType: nombres con combo → Combo; 5x4/4x3/3x2/2x1 → type NxM literal. Distintos de % -, Envío Gratis, te descontamos y bonificaci (mi)."
+  },
+  {
+    "title": "PromotionUtils",
+    "category": "Negocio",
+    "description": "Utilidad de promos: generatePromos (PLP, bonificación comentada), generateBonificationPromo (PDP), validateMaxQuantity. Fuente de type mi vs %."
+  },
+  {
+    "title": "RNS Subscriptions",
+    "category": "Negocio",
+    "description": "Recurring & Subscriptions de VTEX: suscripciones ACTIVE, ciclos de cobro y customerId UUID. Club Chedraui usa RNS + flags en Master Data CL; customerId RNS ≠ id de CL."
+  },
+  {
+    "title": "RoundingMode.DOWN (promo %)",
+    "category": "Negocio",
+    "description": "Al aplicar promo con \"% -\" y type ≠ mi: nuevoPrecio = precio - (precio×pct/100) con DOWN a 2 decimales. Tipo mi no reduce precio display."
+  },
+  {
+    "title": "Sales channel (sc)",
+    "category": "Negocio",
+    "description": "Canal comercial VTEX. Header sc solo en modo Veloz; Chedraui normal usa canal default. DEV/QA Veloz suele ser sc=3; PROD Veloz sc=4 (confirmar en build)."
+  },
+  {
+    "title": "Seller",
+    "category": "Negocio",
+    "description": "Quién cumple el pedido (tienda/warehouse). getSeller resuelve el seller por zona. Seller \"1\" = Chedraui 1P; otros IDs = marketplace o tienda específica."
+  },
+  {
+    "title": "Seller \"1\"",
+    "category": "Negocio",
+    "description": "Seller central Chedraui / hub marketplace. Default de getSeller ante fallo; forzado en simulation PLP con Tipo de envío No restringido y en MATTRESSES en checkout. isMarketPlace=false si sellerDefault es \"1\"."
+  },
+  {
+    "title": "sellerDefaultId",
+    "category": "Negocio",
+    "description": "Seller default expuesto en PLP/PDP (nombre o id). En 6* viene del offer; getJEWEL lo reasigna siempre tras searchSellerProduct."
+  },
+  {
+    "title": "SKU 3563989 (pivote seller)",
+    "category": "Negocio",
+    "description": "SKU hardcoded en searchSellerProduct (delivery): se simula por cada seller de región; el primer available gana. Distinto del pivote Veloz 3001968."
+  },
+  {
+    "title": "SKU digital membresía",
+    "category": "Negocio",
+    "description": "SKUs Club en QA: 1000010020 diario, 1000010021 mensual, 1000010022/23 anual. No van a PLP/carrito tradicional; checkout/afiliación propia. Spikes 888693/888694 no existen en QA."
+  },
+  {
+    "title": "Spec Fecha de Lanzamiento",
+    "category": "Negocio",
+    "description": "Usada en preventa async de checkout junto a spec Preventa (VERDADERO|TRUE|SI|SÍ|1). Puede no estar expuesta en UI aunque exista en specs."
+  },
+  {
+    "title": "StoreInformation (SQL)",
+    "category": "Negocio",
+    "description": "Cache SQL Server de tiendas usado por getListStore y getCatalogStores/ByCity. Semilla el catálogo de estados/ciudades y pickup points sintéticos chedrauimx{store}_PP{store}."
+  },
+  {
+    "title": "Tercer orderForm (membresía)",
+    "category": "Negocio",
+    "description": "Además de OF Chedraui y OF Veloz, Superveloz/Membresías prevén orderFormId de afiliación Club con SC dedicado (TBD). No reutilizar el OF de súper ni meter SKUs digitales ahí."
+  },
+  {
+    "title": "Tipo de envío / No restringido",
+    "category": "Negocio",
+    "description": "Spec que dispara lógica DHL/marketplace. Con \"No restringido\" el BFF puede forzar seller \"1\" en simulation y marcar isDHL según SLAs."
+  },
+  {
+    "title": "Trade policy",
+    "category": "Negocio",
+    "description": "Política comercial ligada al sales channel: precios, promos e inventario visibles para ese canal. Cambiar sc cambia la trade policy efectiva."
+  },
+  {
+    "title": "Umbral 1P $299 (Club)",
+    "category": "Negocio",
+    "description": "Beneficio de miembro ACTIVO en getCheckoutOrderForm: envío gratis con subtotal 1P ≥ ~$299 (parametrizable). 3P/marketplace sin beneficio; no mezclar SKU membresía en ese OF."
+  },
+  {
+    "title": "unitMultiplier",
+    "category": "Negocio",
+    "description": "Multiplicador de porción en pesables (kg). price = precio por kg; sellingPrice en VTEX suele ser price × unitMultiplier. maxQuantity considera unitMultiplier."
+  },
+  {
+    "title": "Whitelabel seller",
+    "category": "Negocio",
+    "description": "Seller de tienda regional (chedrauimx####) en la cadena bajo seller \"1\". Cobertura geográfica y known issues de simulation batch dependen de esta cadena."
+  },
+  {
+    "title": "addOpenPay",
+    "category": "Pagos",
+    "description": "Paso previo en updateMiMonederoOrderForm que registra metadata OpenPay en el orderForm de súper. No procesa el cobro de membresía Club."
+  },
+  {
+    "title": "gatewaycallback (WebView checkout)",
+    "category": "Pagos",
+    "description": "Path /checkout/.../gatewaycallback/{folio} que DeepLinkManager abre en WebView de checkout. Pago final VTEX pub suele vivir en WebView, no en el BFF."
+  },
+  {
+    "title": "Mercado Pago (HT iOS)",
+    "category": "Pagos",
+    "description": "HU Técnica de integración Mercado Pago en iOS (ej. WI 35190). Convivirá con OpenPay/WebView VTEX según alcance del sprint."
+  },
+  {
+    "title": "OpenPay",
+    "category": "Pagos",
+    "description": "Pasarela de pago. En el BFF, updateMiMonederoOrderForm llama addOpenPay antes de customData de monedero (metadata del orderForm de súper). En membresías, el webhook de cobro vive en VTEX IO (/_v/openpay/webhook), no en ese flujo."
+  },
+  {
+    "title": "updateMiMonederoOrderForm",
+    "category": "Pagos",
+    "description": "Prepara el orderForm para pago con monedero: addOpenPay y luego customData de monedero. No es el webhook de membresía ni consultaMonedero."
+  },
+  {
+    "title": "Ambientes DEV · QA · PROD",
+    "category": "Proceso",
+    "description": "Hosts APIM, Auth0 y BFF distintos. BFF QA puede apuntar a VTEX PROD: no asumas QA = sandbox de catálogo. Nunca mezclar credenciales PROD en exploratorio."
   },
   {
     "title": "Azure Boards / Sprint",
@@ -435,28 +1110,263 @@
     "description": "Herramienta y cadencia de trabajo AppNativa. HU/bugs con estados claros; escalar a dueño de capa (iOS/Android/BFF/CMS/QA), no “ping a todos”."
   },
   {
+    "title": "Evidencia de bug",
+    "category": "Proceso",
+    "description": "Mínimo: ambiente + build + SO + sc + seller + geo + SKU + esperado/actual + captura. No reportar PROD si se probó TestFlight/QA sin decirlo."
+  },
+  {
+    "title": "Feature parity",
+    "category": "Proceso",
+    "description": "Misma regla de negocio y UX en iOS y Android (localizador Veloz, headers sc, deep links). Muchos bugs son de paridad."
+  },
+  {
+    "title": "HT caché en pedidos",
+    "category": "Proceso",
+    "description": "Propuesta de cachear pedidos entregados/cancelados en backend para no reconsultar Janis en cada visita al historial."
+  },
+  {
+    "title": "Known issue",
+    "category": "Proceso",
+    "description": "Bug documentado (simulation 500, PDP -1, facets/sc, 401 APIM). Revisar vault antes de abrir ticket duplicado."
+  },
+  {
+    "title": "main_version_x.y.z",
+    "category": "Proceso",
+    "description": "Convención de ramas de release del BFF (ej. main_version_4.0.18_Empathy). Features/fixes en feature/* o fix/*; PRs hacia main."
+  },
+  {
+    "title": "Reopen",
+    "category": "Proceso",
+    "description": "Bug/HU reabierto tras fallar QA o UAT. Suele indicar evidencia incompleta o regresión."
+  },
+  {
+    "title": "RFQ (Ready for QA)",
+    "category": "Proceso",
+    "description": "Estado Azure: listo para QA. No mandar a RFQ sin evidencia reproducible (ambiente, build, SKU, seller, sc, geo)."
+  },
+  {
+    "title": "Richard (BFF)",
+    "category": "Proceso",
+    "description": "Apodo del equipo para el backend-app / responsable Ricardo: \"pasa por Richard\", \"known issues Richard\". Misma capa apisChedrauiApp, no un sistema aparte."
+  },
+  {
+    "title": "Spike",
+    "category": "Proceso",
+    "description": "Investigación time-boxed en Azure (membresías, checkout independiente Veloz, Janis/bonificación). Produce PDF/notas; no es el desarrollo final de la feature."
+  },
+  {
+    "title": "UAT",
+    "category": "Proceso",
+    "description": "User Acceptance Testing. En Veloz: guardar orderId, versión de app y canal. Colecciones vacías en PROD son hallazgo de contenido."
+  },
+  {
+    "title": "abandoned-cart-webhook",
+    "category": "Técnica",
+    "description": "POST Weni por cada mutación relevante del orderForm (order_form_id + phone + name). Siempre HTTP 200 \"Webhook received\"; la decisión abandonado/comprado es async."
+  },
+  {
+    "title": "ACTIVE_REDIS",
+    "category": "Técnica",
+    "description": "Feature flag de Redis en configuración Azure del BFF. Distinto del cache in-memory CacheInformationUtil."
+  },
+  {
+    "title": "Application Insights / azureInsightsSearch",
+    "category": "Técnica",
+    "description": "Telemetría y reporting del BFF (StopWatch, KQL). Logs útiles: SELLER SELECCIONADO, Canal de ventas tomado de cabecera, NO EXISTE SELECCIONADO LA DIRECCION."
+  },
+  {
+    "title": "Azure Functions Core Tools (func host start)",
+    "category": "Técnica",
+    "description": "Arranque local del BFF desde target/azure-functions/azure-function-apisChedrauiApp (no spring-boot:run). Endpoints localhost:7071/api/{functionName}; debugger Java :5005."
+  },
+  {
+    "title": "backendLogin",
+    "category": "Técnica",
+    "description": "Header de autenticación de infraestructura en APIM hacia /backend-app/*. Distinto de cookies VTEX y de applogin/cmsLogin/vtexLogin de otros gateways. Sin él APIM suele responder 401."
+  },
+  {
+    "title": "CacheInformationUtil",
+    "category": "Técnica",
+    "description": "Cache ConcurrentHashMap process-wide en la Function App (por instancia; Azure puede tener varias). No es Redis a menos que ACTIVE_REDIS esté habilitado."
+  },
+  {
+    "title": "cmsLogin / applogin / vtexLogin",
+    "category": "Técnica",
+    "description": "Headers de suscripción por gateway: cmsLogin → CMS, applogin → appCh, vtexLogin → monedero. No sustituyen backendLogin del BFF ni cookies VTEX de sesión."
+  },
+  {
+    "title": "code -1",
+    "category": "Técnica",
+    "description": "Error genérico del BFF (p. ej. PDP cuando simulation falla). Insuficiente para debug: revisar logs/VTEX y known issues."
+  },
+  {
+    "title": "code 100 (ERROR_SELECTED_ADDRESS)",
+    "category": "Técnica",
+    "description": "Sin shippingData, mismatch pickup seller/addressId (<0.7) o excepción de validación pickup. Checkout debe mostrar error; hoy a veces pantalla blanca."
+  },
+  {
+    "title": "code 101 (ERROR_INFO_USER_EMPTY)",
+    "category": "Técnica",
+    "description": "Sin email en step2, email inválido, o usuario sin direcciones (getDirecctions). Indica sesión/perfil incompleto, no caída genérica de VTEX."
+  },
+  {
+    "title": "code 201 (SUCCESS_COOKIE)",
+    "category": "Técnica",
+    "description": "Éxito de validateSession cuando no viene header sc: se usa VTEX_SALES_CHANNEL_DEFAULT. code 200 es éxito genérico; 201 no implica cookie Auth0."
+  },
+  {
+    "title": "CompletableFuture (PLP async)",
+    "category": "Técnica",
+    "description": "Patrón de enriquecimiento: runAsync por producto en PLP, async por URL en JEWEL, executeAsync specs de preventa en checkout. Facets siguen siendo llamada separada."
+  },
+  {
+    "title": "COOKIE_API_EXCLUDE",
+    "category": "Técnica",
+    "description": "Env var (p. ej. getPLP,getPDP) con functions que no exigen vtex-cookie-key/token. El resto de endpoints protegidos fallan con code -5 si la cookie es inválida."
+  },
+  {
+    "title": "Deeplink / Universal Link",
+    "category": "Técnica",
+    "description": "URLs que abren Home, PLP o PDP. Dominio raíz puede forzar Home. PDP usa path de producto VTEX; homologar iOS/Android y matriz de marketing."
+  },
+  {
+    "title": "DeviceInfo (SQL)",
+    "category": "Técnica",
+    "description": "Tabla SQL: email, SO, app/build, orderFormId y orderFormIdVeloz. saveDeviceInfo persiste; checkout sin clientProfileData puede recuperar email desde aquí (addInfoClientData)."
+  },
+  {
+    "title": "GeneralUtils.esValido",
+    "category": "Técnica",
+    "description": "Valida geoCoordinates: rechaza null/size≠2, (0,0) y el placeholder Polanco (-99.20624, 19.44073). Coords inválidas en checkout vacían shippingData sin code explícito; en createAddress → 106."
+  },
+  {
+    "title": "GenericResponse { code, message, data }",
+    "category": "Técnica",
+    "description": "Envelope del BFF. code de negocio ≠ status HTTP. updateShippingOrderForm puede ser HTTP 200 con code de error en body."
+  },
+  {
+    "title": "HandlerTracker",
+    "category": "Técnica",
+    "description": "StopWatch ThreadLocal por request. Cada handler hace start(functionName) y log en finally; los tiempos por etapa aparecen en Application Insights."
+  },
+  {
+    "title": "integrated_agent_uuid (Weni)",
+    "category": "Técnica",
+    "description": "Secreto embebido en URL del webhook abandoned-cart de Weni (retailsetup.weni.ai). Sin Bearer; solo server-to-server; nunca en JS del cliente."
+  },
+  {
+    "title": "local.settings.json",
+    "category": "Técnica",
+    "description": "Valores reales del BFF (formato Azure Functions Values) leídos por func host start. application.yml solo bindea ${ENV_VAR}; hay que editar ambos al agregar settings."
+  },
+  {
     "title": "Postman (contratos)",
     "category": "Técnica",
     "description": "Colecciones de referencia de endpoints BFF/VTEX/Auth0. Fuente de verdad de contratos antes de discutir “la app está mal”."
   },
   {
-    "title": "Xcode / Android Studio",
-    "category": "Móvil",
-    "description": "IDEs oficiales iOS y Android del equipo AppNativa para builds, debugging y firma."
+    "title": "RequestContextHolder",
+    "category": "Técnica",
+    "description": "Contexto por request en el BFF: carga sales channel (sc) y datos de sesión usados por ValidationVtexServiceImpl y endpoints."
   },
   {
-    "title": "Push Notifications",
-    "category": "Móvil",
-    "description": "Mensajes remotos al dispositivo (promos, pedido, reenganche). Coordinar con backends de mensajería y permisos del SO."
+    "title": "ResponseOperators",
+    "category": "Técnica",
+    "description": "Enum de codes del BFF (SUCCESS 200, ERROR -1, BAD_REQUEST 400, 100–109 negocio, -5/-12/-17, etc.). Mensajes en español; HTTP suele ser 200 aunque code ≠ 200."
   },
   {
-    "title": "Analytics",
-    "category": "Móvil",
-    "description": "Instrumentación de eventos de producto (Home, Veloz switch, checkout). Salvador/iOS y Android mantienen paridad de tracking."
+    "title": "SECURITY_COOKIE_ENABLED",
+    "category": "Técnica",
+    "description": "Flag local/Azure: si es false, HeaderValidatorServiceImpl devuelve usuario mock en lugar de validar VTEX. Útil en func host start sin cookies reales."
   },
   {
-    "title": "Crashlytics",
-    "category": "Móvil",
-    "description": "Monitoreo de crashes. Útil para correlacionar incidentes post-release con build y dispositivo."
+    "title": "VtexQueryBuilder",
+    "category": "Técnica",
+    "description": "Builder de queries/match: matchStores, mapVtexStatus y utilidades de búsqueda VTEX usadas por seller/checkout/órdenes."
+  },
+  {
+    "title": "Weni (carrito abandonado)",
+    "category": "Técnica",
+    "description": "Integración outbound (WhatsApp) para recuperar carritos abandonados. No confundir con el carrito activo de la sesión en app."
+  },
+  {
+    "title": "CMS Superveloz",
+    "category": "Veloz",
+    "description": "Home/contenido distinto al CMS Chedraui cuando la sesión Veloz está activa. No rellenar con home grocery sin criterio; flags definen cargando / sin cobertura / con cobertura."
+  },
+  {
+    "title": "DatesUtil.agrupar",
+    "category": "Veloz",
+    "description": "Agrupa ventanas en Hoy/Mañana/día (offset -6h vs UTC, TZ México). Si sc ≠ default limita a máximo 3 rangos por día (Superveloz)."
+  },
+  {
+    "title": "FAST_PIVOT_SKU / SKU pivote",
+    "category": "Veloz",
+    "description": "SKU usado para probar cobertura Veloz (simulation del pivote). Sin cobertura → UI “no disponible”, no un catálogo mentiroso."
+  },
+  {
+    "title": "Feature flag",
+    "category": "Veloz",
+    "description": "Interruptor remoto de features (p. ej. Veloz). Flag apagado ≠ bug de red. Estados típicos: cargando / sin cobertura / con cobertura."
+  },
+  {
+    "title": "isVelozAvailable",
+    "category": "Veloz",
+    "description": "El BFF lo calcula en updateShippingOrderForm solo si sc ≠ canal default: getSeller + simulation del SKU pivote con availability == available."
+  },
+  {
+    "title": "Localizador (Veloz)",
+    "category": "Veloz",
+    "description": "En Veloz el localizador es flujo de domicilio (no el pickup de Chedraui). Debe abrir direcciones; “tap que no hace nada” es bug recurrente de paridad."
+  },
+  {
+    "title": "OrderForm dual",
+    "category": "Veloz",
+    "description": "Hay orderFormId Chedraui y orderFormId Veloz independientes. Crear OF con el sc del modo activo; no cruzar slots ni reusar el mismo id en ambos."
+  },
+  {
+    "title": "orderFormIdVeloz",
+    "category": "Veloz",
+    "description": "Campo DeviceInfo / sesión app para el carrito del modo Veloz, independiente del orderFormId Chedraui. Tercer OF previsto para membresía (SC TBD)."
+  },
+  {
+    "title": "ScHeaderInterceptor",
+    "category": "Veloz",
+    "description": "Interceptor Android que agrega header sc solo si la sesión Veloz está activa. En Chedraui normal no debe forzar sc."
+  },
+  {
+    "title": "SKU 3001968 (pivote Veloz)",
+    "category": "Veloz",
+    "description": "Coca-Cola 600ml (en la práctica) usada en updateShippingOrderForm para isVelozAvailable: simulation qty 1 con seller de la zona. No prueba el carrito real del usuario."
+  },
+  {
+    "title": "Super Veloz",
+    "category": "Veloz",
+    "description": "Experiencia de delivery rápido con catálogo, logística y sales channel propios. Es un modo/sesión separado, no solo un filtro de home."
+  },
+  {
+    "title": "Supercitos",
+    "category": "Veloz",
+    "description": "Nombre de negocio/histórico de Superveloz en VTEX. En PROD sc=4 es Supercitos; en QA sc=3 es Veloz (no hay canal APP separado: sc=1 es WEB/default)."
+  },
+  {
+    "title": "Switch Veloz ↔ Chedraui",
+    "category": "Veloz",
+    "description": "Cambio de modo que dispara updateShippingOrderForm. Un HTTP 401 del switch no siempre es Auth0 muerto; iOS puede hacer logout sin refresh tras varios 401."
+  },
+  {
+    "title": "VELOZ_APP",
+    "category": "Veloz",
+    "description": "Canal/tag de evidencia UAT para encuestas y pedidos Superveloz. Guardar junto a orderId y versión de app; no intercambiar CSAT con CES."
+  },
+  {
+    "title": "VelozSessionData",
+    "category": "Veloz",
+    "description": "Singleton iOS de sesión Superveloz: isActive inyecta header sc en EnvironmentConfig.getBackendHeaders(); salesChannel típico 3 en QA. Android debe paridad vía ScHeaderInterceptor."
+  },
+  {
+    "title": "WH Veloz (ej. WH0890)",
+    "category": "Veloz",
+    "description": "Warehouse de inventario del trade policy Veloz. Coords mal pueden resolver seller 0890 con stock solo del pivote; seller 0819 suele tener más surtido en QA."
   }
 ]
